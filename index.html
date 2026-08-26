@@ -3,53 +3,131 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SC-500 Security Lab — visual, exam-focused, job-oriented study app." />
+  <meta name="description" content="SC-500 Security Lab — visual, minimal, exam-focused learning app for cloud and AI security." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';" />
   <title>SC-500 Security Lab</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div><p class="eyebrow">Microsoft SC-500</p><h1>Security Lab</h1></div>
-    <div class="mode-switch" role="group" aria-label="Learning mode">
-      <button class="mode active" data-mode="beginner">Beginner</button>
-      <button class="mode" data-mode="exam">SC-500 Exam</button>
-      <button class="mode" data-mode="engineer">Security Engineer</button>
-    </div>
-  </header>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <div class="brand-mark">S5</div>
+        <div>
+          <p class="eyebrow">Microsoft SC-500</p>
+          <h1>Security Lab</h1>
+        </div>
+      </div>
 
-  <main>
-    <section class="hero card">
-      <div><p class="eyebrow">Your learning dashboard</p><h2>Learn visually. Test actively. Apply at work.</h2><p id="modeDescription">Start with a simple mental model, then layer in Microsoft security controls.</p></div>
-      <div class="readiness"><div class="ring"><span>8%</span></div><p>Exam readiness</p></div>
-    </section>
+      <div class="search-wrap">
+        <input id="trackSearch" type="search" placeholder="Search tracks or concepts" aria-label="Search tracks" />
+      </div>
 
-    <section class="stats">
-      <article class="metric"><strong id="lessonsDone">0</strong><span>Lessons complete</span></article>
-      <article class="metric"><strong id="quizScore">—</strong><span>Latest quiz</span></article>
-      <article class="metric"><strong id="flashcardsSeen">0</strong><span>Flashcards reviewed</span></article>
-      <article class="metric"><strong>12</strong><span>Learning tracks</span></article>
-    </section>
+      <nav>
+        <p class="nav-label">Learning tracks</p>
+        <div id="trackList" class="track-list"></div>
+      </nav>
 
-    <section><div class="section-heading"><div><p class="eyebrow">Roadmap</p><h2>SC-500 learning tracks</h2></div></div><div id="tracks" class="track-grid"></div></section>
+      <div class="sidebar-card">
+        <p class="eyebrow">Study rhythm</p>
+        <h3>Daily pattern</h3>
+        <ul>
+          <li>15 min concept reading</li>
+          <li>15 min visual review</li>
+          <li>15 min scenario quiz</li>
+          <li>10 min flashcards</li>
+        </ul>
+      </div>
+    </aside>
 
-    <section class="lesson-layout">
-      <aside class="card"><p class="eyebrow">Module 1</p><h2>Microsoft Entra security</h2><nav id="lessonNav" class="lesson-nav" aria-label="Entra lessons"></nav></aside>
-      <article class="card lesson-card" id="lessonPanel" aria-live="polite"></article>
-    </section>
+    <main class="main-panel">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Minimal • modern • visual</p>
+          <h2>Learn cloud and AI security the way you work</h2>
+          <p class="subtext" id="modeDescription">Use simple mental models first, then switch to exam language or a security-engineer view.</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="mode-switch" role="group" aria-label="Learning mode">
+            <button class="mode active" data-mode="beginner">Beginner</button>
+            <button class="mode" data-mode="exam">SC-500 Exam</button>
+            <button class="mode" data-mode="engineer">Security Engineer</button>
+          </div>
+        </div>
+      </header>
 
-    <section class="two-col">
-      <article class="card"><p class="eyebrow">Visual mental model</p><h2>Conditional Access decision flow</h2><div class="diagram"><div class="node">User / Workload</div><div class="arrow">→</div><div class="node">Microsoft Entra ID</div><div class="arrow">→</div><div class="node highlight">Conditional Access</div><div class="arrow">→</div><div class="node">Allow / MFA / Block</div></div><p class="hint">Think: <strong>signal → policy → decision → enforcement</strong>.</p></article>
-      <article class="card"><p class="eyebrow">Exam trap</p><h2>RBAC vs PIM vs Conditional Access</h2><div class="compare"><div><strong>RBAC</strong><span>What can this identity do?</span></div><div><strong>PIM</strong><span>When can privilege become active?</span></div><div><strong>Conditional Access</strong><span>Under what conditions is access allowed?</span></div></div></article>
-    </section>
+      <section class="hero-grid">
+        <article class="card overview-card">
+          <p class="eyebrow">Readiness</p>
+          <div class="readiness-row">
+            <div class="ring" id="readinessRing"><span id="readinessValue">0%</span></div>
+            <div>
+              <h3>SC-500 progress</h3>
+              <p class="subtext">Track completion is stored locally in your browser.</p>
+              <div class="statline">
+                <span><strong id="tracksDone">0</strong> / 12 tracks completed</span>
+                <span><strong id="quizAverage">0%</strong> quiz average</span>
+              </div>
+            </div>
+          </div>
+        </article>
 
-    <section class="two-col">
-      <article class="card"><p class="eyebrow">Flashcards</p><div id="flashcard" class="flashcard" tabindex="0" role="button"><span class="small">Tap to reveal</span><h2 id="flashFront">Managed Identity</h2><p id="flashBack" hidden></p></div><div class="actions"><button id="revealFlash">Reveal</button><button id="nextFlash" class="secondary">Next card</button></div></article>
-      <article class="card"><p class="eyebrow">Quick quiz</p><div id="quiz"></div></article>
-    </section>
-  </main>
+        <article class="card quick-card">
+          <p class="eyebrow">Today’s focus</p>
+          <h3 id="todayFocus">Microsoft Entra security</h3>
+          <p class="subtext" id="todaySummary">Build strong identity-first habits before expanding into network, data and AI controls.</p>
+          <button id="jumpToTrack">Open track</button>
+        </article>
+      </section>
 
-  <footer><p>SC-500 Security Lab v0.1 — original study content mapped to Microsoft SC-500 objectives.</p></footer>
+      <section class="stats-grid">
+        <article class="metric"><strong id="conceptCount">12</strong><span>Tracks loaded</span></article>
+        <article class="metric"><strong id="flashcardsSeen">0</strong><span>Flashcards reviewed</span></article>
+        <article class="metric"><strong id="lessonsDone">0</strong><span>Tracks completed</span></article>
+        <article class="metric"><strong id="currentStreak">1</strong><span>Consistency target</span></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="card track-detail" id="trackDetail"></article>
+
+        <aside class="right-rail">
+          <article class="card flashcard-card">
+            <div class="section-head slim">
+              <div>
+                <p class="eyebrow">Flashcards</p>
+                <h3>Quick recall</h3>
+              </div>
+              <span id="flashcardTag" class="pill">Track set</span>
+            </div>
+            <div id="flashcard" class="flashcard" tabindex="0" role="button" aria-label="Flashcard, press to reveal">
+              <span class="small">Tap to reveal answer</span>
+              <h3 id="flashFront">Loading…</h3>
+              <p id="flashBack" hidden></p>
+            </div>
+            <div class="actions">
+              <button id="revealFlash">Reveal</button>
+              <button id="nextFlash" class="secondary">Next card</button>
+            </div>
+          </article>
+
+          <article class="card quiz-card">
+            <div class="section-head slim">
+              <div>
+                <p class="eyebrow">Scenario quiz</p>
+                <h3>One question at a time</h3>
+              </div>
+            </div>
+            <div id="quizBox"></div>
+          </article>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script src="./tracks-1.js"></script>
+  <script src="./tracks-2.js"></script>
+  <script src="./tracks-3.js"></script>
+  <script src="./tracks-4.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

@@ -1,15 +1,311 @@
-const TRACKS=[["01","Microsoft Entra security","Identity, authentication, access control, PIM and workload identities","In progress"],["02","Azure Key Vault","Secrets, keys, certificates, access and network protection","Planned"],["03","Governance & compliance","RBAC, Azure Policy, management groups and regulatory controls","Planned"],["04","Azure Storage security","Identity, encryption, SAS, private access and Defender","Planned"],["05","Azure SQL security","Authentication, firewalling, auditing, encryption and Defender","Planned"],["06","Network security","NSG, Firewall, WAF, Private Link, DDoS and architecture","Planned"],["07","AI security","Foundry, AI Gateway, Agent ID, Purview and Defender for AI","Planned"],["08","Servers & VMs","Defender for Servers, JIT, disk security and hybrid protection","Planned"],["09","Apps, APIs & AKS","App Service, API security, containers and Kubernetes","Planned"],["10","Defender for Cloud","CSPM, recommendations, secure score and workload protection","Planned"],["11","Microsoft Sentinel","Collection, analytics, automation, incidents and hunting","Planned"],["12","Security Copilot","Security Copilot setup, roles, plugins and agents","Planned"]];
-const LESSONS=[
-{id:"identity",title:"Identity security mental model",body:{beginner:`<p>Microsoft Entra ID is the identity control plane. It answers: <strong>Who are you?</strong>, <strong>how did you authenticate?</strong>, and <strong>what should happen next?</strong></p><div class="callout"><strong>Mental model:</strong> Identity → Authentication → Authorization → Monitoring.</div><ul><li>Identity: user, service principal, managed identity, agent.</li><li>Authentication: passwordless, MFA, certificate, token.</li><li>Authorization: RBAC and resource permissions.</li><li>Monitoring: sign-in logs, risk signals, Defender and Sentinel.</li></ul>`,exam:`<p>For SC-500, separate <strong>authentication</strong> from <strong>authorization</strong>. Entra proves identity; Azure RBAC determines allowed Azure resource actions.</p><div class="callout exam"><strong>Exam trigger:</strong> Require MFA depending on user, device, risk or location → think <strong>Conditional Access</strong>.</div>`,engineer:`<p>Treat identity as a security boundary. A compromised privileged identity can bypass network controls, so reduce standing privilege and monitor token/sign-in behavior.</p><div class="callout job"><strong>At work:</strong> Review privileged roles, legacy authentication, service principal secrets, risky sign-ins, exclusion groups and break-glass accounts.</div>`}},
-{id:"ca",title:"Conditional Access",body:{beginner:`<p>Conditional Access is an <strong>if/then policy engine</strong>.</p><div class="callout"><strong>IF</strong> a condition is true → <strong>THEN</strong> allow, block, require MFA, require compliant device, or enforce another control.</div>`,exam:`<p>Know the building blocks: <strong>assignments/signals</strong> and <strong>access controls</strong>.</p><div class="callout exam"><strong>Trap:</strong> Conditional Access does not give Azure resource permissions. RBAC does that.</div>`,engineer:`<p>Common failures are dangerous exclusions, broad trusted-location assumptions, and policies rolled out without report-only testing.</p><div class="callout job"><strong>Review:</strong> exclusions, emergency accounts, device trust, sign-in risk, user risk and legacy authentication.</div>`}},
-{id:"pim",title:"Privileged Identity Management (PIM)",body:{beginner:`<p>PIM reduces permanent admin access. A user can be <strong>eligible</strong> for a role and activate it only when required.</p>`,exam:`<p>Look for phrases like <strong>just-in-time privileged access</strong>, approval, activation duration, justification, MFA during activation, or access reviews.</p><div class="callout exam">Temporary activation of privileged roles → think PIM.</div>`,engineer:`<p>Use PIM to reduce standing privilege and make privileged changes observable. Pair it with logging and alerting for role activation.</p>`}},
-{id:"mi",title:"Managed identities",body:{beginner:`<p>A managed identity lets an Azure resource get an Entra token without keeping a username/password or application secret in code.</p><div class="callout">App/VM → Managed Identity → Entra token → Azure resource.</div>`,exam:`<p>Scenario: VM or App Service must access Key Vault without stored credentials → <strong>Managed Identity</strong>.</p>`,engineer:`<p>Managed identity removes secret-management burden, but permissions still matter. Excessive RBAC is still an attack path.</p><div class="callout attack"><strong>Attack path:</strong> compromise workload → use workload token → access downstream resource.</div>`}},
-{id:"workload",title:"Workload identities",body:{beginner:`<p>Not every identity is a person. Applications, service principals, managed identities and agents also authenticate and need permissions.</p>`,exam:`<p>SC-500 increasingly tests non-human identity security because cloud and AI workloads depend on them.</p>`,engineer:`<p>Inventory service principals, credentials, owners and permissions. Prefer managed/federated identity over long-lived secrets where practical.</p>`}}];
-const FLASHCARDS=[["Managed Identity","An identity managed by Azure that lets a resource obtain Entra tokens without storing application secrets."],["PIM","Controls lifecycle and just-in-time activation of privileged roles."],["Conditional Access","A policy engine using identity/device/risk/context signals to make access decisions."],["Azure RBAC","Authorization system that determines which Azure resource actions an identity can perform."],["Workload Identity","A non-human identity used by software or services to authenticate and access resources."]];
-const QUIZ={q:"An Azure App Service must read a secret from Key Vault. The security team does not want credentials stored in application configuration. What should you use?",options:["Shared Access Signature","Managed Identity","Network Security Group","Conditional Access"],answer:1,why:"Managed Identity lets App Service obtain an Entra token without storing a client secret. RBAC or Key Vault permissions still determine what it can access."};
-const root=document;const tracks=root.querySelector("#tracks");TRACKS.forEach(t=>{const el=document.createElement("article");el.className="track";el.innerHTML=`<span class="num">${t[0]}</span><h3>${t[1]}</h3><p>${t[2]}</p><span class="status">${t[3]}</span>`;tracks.appendChild(el)});
-let mode="beginner",currentLesson=LESSONS[0];const nav=root.querySelector("#lessonNav"),panel=root.querySelector("#lessonPanel");function renderLessonNav(){nav.innerHTML="";LESSONS.forEach((l,i)=>{const b=document.createElement("button");b.textContent=`${i+1}. ${l.title}`;b.className=l.id===currentLesson.id?"active":"";b.addEventListener("click",()=>{currentLesson=l;renderLesson();renderLessonNav()});nav.appendChild(b)})}function renderLesson(){const labels={beginner:"Beginner",exam:"SC-500 Exam",engineer:"Security Engineer"};panel.innerHTML=`<span class="tag">${labels[mode]}</span><h2>${currentLesson.title}</h2>${currentLesson.body[mode]}<div class="actions"><button id="completeLesson">Mark lesson complete</button></div>`;panel.querySelector("#completeLesson").addEventListener("click",()=>{const key=`sc500-${currentLesson.id}`;localStorage.setItem(key,"1");updateStats()})}
-root.querySelectorAll(".mode").forEach(btn=>btn.addEventListener("click",()=>{mode=btn.dataset.mode;root.querySelectorAll(".mode").forEach(b=>b.classList.toggle("active",b===btn));const desc={beginner:"Start with a simple mental model, then layer in Microsoft security controls.",exam:"Focus on Microsoft wording, service selection, scenario clues and exam traps.",engineer:"Focus on attack paths, implementation choices, telemetry and operational security."};root.querySelector("#modeDescription").textContent=desc[mode];renderLesson()}));
-let flashIndex=0;function renderFlash(hidden=true){root.querySelector("#flashFront").textContent=FLASHCARDS[flashIndex][0];const back=root.querySelector("#flashBack");back.textContent=FLASHCARDS[flashIndex][1];back.hidden=hidden}function revealFlash(){root.querySelector("#flashBack").hidden=false;const current=Number(localStorage.getItem("sc500Flashcards")||0)+1;localStorage.setItem("sc500Flashcards",String(current));updateStats()}root.querySelector("#revealFlash").addEventListener("click",revealFlash);root.querySelector("#flashcard").addEventListener("click",revealFlash);root.querySelector("#nextFlash").addEventListener("click",()=>{flashIndex=(flashIndex+1)%FLASHCARDS.length;renderFlash(true)});
-const quizEl=root.querySelector("#quiz");function renderQuiz(){quizEl.innerHTML=`<h2>${QUIZ.q}</h2>`;QUIZ.options.forEach((opt,i)=>{const b=document.createElement("button");b.className="quiz-option";b.textContent=opt;b.addEventListener("click",()=>answerQuiz(i));quizEl.appendChild(b)})}function answerQuiz(i){const buttons=[...quizEl.querySelectorAll(".quiz-option")];buttons.forEach((b,idx)=>{b.disabled=true;if(idx===QUIZ.answer)b.classList.add("correct")});if(i!==QUIZ.answer)buttons[i].classList.add("wrong");const p=document.createElement("p");p.className="feedback";p.innerHTML=(i===QUIZ.answer?"<strong>Correct.</strong> ":"<strong>Not quite.</strong> ")+QUIZ.why;quizEl.appendChild(p);localStorage.setItem("sc500QuizScore",i===QUIZ.answer?"100%":"0%");updateStats()}function updateStats(){let done=LESSONS.filter(l=>localStorage.getItem(`sc500-${l.id}`)==="1").length;root.querySelector("#lessonsDone").textContent=done;root.querySelector("#quizScore").textContent=localStorage.getItem("sc500QuizScore")||"—";root.querySelector("#flashcardsSeen").textContent=localStorage.getItem("sc500Flashcards")||"0"}
-renderLessonNav();renderLesson();renderFlash();renderQuiz();updateStats();
+const TRACKS = [
+  ...window.SC500_TRACKS_1,
+  ...window.SC500_TRACKS_2,
+  ...window.SC500_TRACKS_3,
+  ...window.SC500_TRACKS_4
+];
+const MODES = {
+  beginner: {
+    title: "Beginner",
+    description: "Use simple mental models first, then add Microsoft cloud security controls.",
+    field: "beginner"
+  },
+  exam: {
+    title: "SC-500 Exam",
+    description: "Focus on Microsoft wording, control selection and common exam traps.",
+    field: "exam"
+  },
+  engineer: {
+    title: "Security Engineer",
+    description: "Focus on attack paths, operational use, telemetry and implementation choices.",
+    field: "engineer"
+  }
+};
+
+let state = {
+  mode: "beginner",
+  currentTrackId: localStorage.getItem("sc500-current-track") || "entra",
+  flashIndex: 0,
+  filtered: TRACKS
+};
+
+const progress = JSON.parse(localStorage.getItem("sc500-progress-v2") || "{}");
+const scores = JSON.parse(localStorage.getItem("sc500-scores-v2") || "{}");
+const flashCount = Number(localStorage.getItem("sc500-flashcards-v2") || 0);
+
+const el = {
+  trackList: document.getElementById("trackList"),
+  trackDetail: document.getElementById("trackDetail"),
+  flashcard: document.getElementById("flashcard"),
+  flashFront: document.getElementById("flashFront"),
+  flashBack: document.getElementById("flashBack"),
+  flashcardTag: document.getElementById("flashcardTag"),
+  revealFlash: document.getElementById("revealFlash"),
+  nextFlash: document.getElementById("nextFlash"),
+  quizBox: document.getElementById("quizBox"),
+  trackSearch: document.getElementById("trackSearch"),
+  modeButtons: document.querySelectorAll(".mode"),
+  modeDescription: document.getElementById("modeDescription"),
+  readinessValue: document.getElementById("readinessValue"),
+  readinessRing: document.getElementById("readinessRing"),
+  tracksDone: document.getElementById("tracksDone"),
+  quizAverage: document.getElementById("quizAverage"),
+  conceptCount: document.getElementById("conceptCount"),
+  flashcardsSeen: document.getElementById("flashcardsSeen"),
+  lessonsDone: document.getElementById("lessonsDone"),
+  todayFocus: document.getElementById("todayFocus"),
+  todaySummary: document.getElementById("todaySummary"),
+  jumpToTrack: document.getElementById("jumpToTrack")
+};
+
+function getTrack(id){
+  return TRACKS.find(t => t.id === id) || TRACKS[0];
+}
+
+function trackCompleted(id){
+  return !!progress[id];
+}
+
+function saveProgress(){
+  localStorage.setItem("sc500-progress-v2", JSON.stringify(progress));
+}
+function saveScores(){
+  localStorage.setItem("sc500-scores-v2", JSON.stringify(scores));
+}
+
+function averageScore(){
+  const vals = Object.values(scores);
+  if(!vals.length) return 0;
+  return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+}
+
+function completedCount(){
+  return Object.values(progress).filter(Boolean).length;
+}
+
+function updateStats(){
+  const done = completedCount();
+  const readiness = Math.round((done / TRACKS.length) * 100);
+  el.readinessValue.textContent = `${readiness}%`;
+  el.readinessRing.style.background = `conic-gradient(var(--accent) 0 ${readiness}%, #dbe6fb ${readiness}% 100%)`;
+  el.tracksDone.textContent = done;
+  el.quizAverage.textContent = `${averageScore()}%`;
+  el.flashcardsSeen.textContent = localStorage.getItem("sc500-flashcards-v2") || "0";
+  el.lessonsDone.textContent = done;
+  el.conceptCount.textContent = TRACKS.length;
+  const current = getTrack(state.currentTrackId);
+  el.todayFocus.textContent = current.title;
+  el.todaySummary.textContent = current.summary;
+}
+
+function renderTrackList(){
+  el.trackList.innerHTML = "";
+  state.filtered.forEach(track => {
+    const btn = document.createElement("button");
+    btn.className = `track-item ${track.id === state.currentTrackId ? 'active' : ''}`;
+    btn.innerHTML = `
+      <span class="title">${track.number}. ${track.title}</span>
+      <span class="mini">${track.area}</span>
+      <span class="status">${trackCompleted(track.id) ? 'Completed' : 'Ready to study'}</span>
+    `;
+    btn.addEventListener("click", () => {
+      state.currentTrackId = track.id;
+      state.flashIndex = 0;
+      localStorage.setItem("sc500-current-track", track.id);
+      renderAll();
+    });
+    el.trackList.appendChild(btn);
+  });
+}
+
+function renderTrackDetail(){
+  const track = getTrack(state.currentTrackId);
+  const modeField = MODES[state.mode].field;
+  const isDone = trackCompleted(track.id);
+  const percent = isDone ? 100 : 0;
+  el.trackDetail.innerHTML = `
+    <div class="track-header">
+      <div>
+        <p class="eyebrow">Track ${track.number}</p>
+        <h2>${track.title}</h2>
+        <p class="subtext">${track.summary}</p>
+        <span class="pill">${track.area}</span>
+      </div>
+      <div>
+        <div class="pill">Mode: ${MODES[state.mode].title}</div>
+      </div>
+    </div>
+
+    <div class="progress-line"><span style="width:${percent}%"></span></div>
+    <div class="track-actions">
+      <button id="markComplete">${isDone ? 'Completed' : 'Mark track complete'}</button>
+      <button class="ghost" id="resetTrack">Reset track</button>
+    </div>
+
+    <div class="grid-two">
+      <div class="callout">
+        <strong>Mental model</strong>
+        <p>${track.mentalModel}</p>
+      </div>
+      <div class="callout">
+        <strong>Why it matters</strong>
+        <p>${track.why}</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:18px;">
+      <strong>${MODES[state.mode].title} explanation</strong>
+      <p>${track[modeField]}</p>
+    </div>
+
+    <div class="diagram">
+      <div class="section-head slim">
+        <div>
+          <p class="eyebrow">Visual path</p>
+          <h3>${track.title} flow</h3>
+        </div>
+      </div>
+      <div class="diagram-flow">
+        ${track.diagram.map((node, idx) => `<div class="node ${idx === 1 || idx === 2 ? 'emph' : ''}">${node}</div>${idx < track.diagram.length - 1 ? '<div class="arrow">→</div>' : ''}`).join('')}
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:18px;">
+      <div>
+        <p class="eyebrow">Core concepts</p>
+        <h3>What to understand</h3>
+      </div>
+    </div>
+    <div class="concept-list">
+      ${track.concepts.map(([title, text]) => `<div class="concept"><h4>${title}</h4><p>${text}</p></div>`).join('')}
+    </div>
+
+    <div class="section-head" style="margin-top:18px;">
+      <div>
+        <p class="eyebrow">Exam traps</p>
+        <h3>Do not confuse these</h3>
+      </div>
+    </div>
+    <div class="exam-traps">
+      ${track.traps.map(([a,b]) => `<div class="trap"><strong>${a}</strong><span>${b}</span></div>`).join('')}
+    </div>
+
+    <p class="small-note" style="margin-top:18px;">This study content is original and summarized to help you learn the official SC-500 objective areas faster.</p>
+  `;
+
+  document.getElementById("markComplete").addEventListener("click", () => {
+    progress[track.id] = true;
+    saveProgress();
+    updateStats();
+    renderTrackList();
+    renderTrackDetail();
+  });
+  document.getElementById("resetTrack").addEventListener("click", () => {
+    delete progress[track.id];
+    delete scores[track.id];
+    saveProgress();
+    saveScores();
+    updateStats();
+    renderTrackList();
+    renderTrackDetail();
+    renderQuiz();
+  });
+}
+
+function currentFlashcards(){
+  return getTrack(state.currentTrackId).flashcards;
+}
+
+function renderFlash(hidden = true){
+  const deck = currentFlashcards();
+  const card = deck[state.flashIndex % deck.length];
+  el.flashFront.textContent = card[0];
+  el.flashBack.textContent = card[1];
+  el.flashBack.hidden = hidden;
+  el.flashcardTag.textContent = getTrack(state.currentTrackId).title;
+}
+
+function revealFlash(){
+  el.flashBack.hidden = false;
+  const total = Number(localStorage.getItem("sc500-flashcards-v2") || 0) + 1;
+  localStorage.setItem("sc500-flashcards-v2", total);
+  updateStats();
+}
+
+function renderQuiz(){
+  const track = getTrack(state.currentTrackId);
+  const quiz = track.quiz;
+  el.quizBox.innerHTML = `<h3>${quiz.q}</h3>`;
+  quiz.options.forEach((opt, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "quiz-option";
+    btn.textContent = opt;
+    btn.addEventListener("click", ()=>answerQuiz(idx));
+    el.quizBox.appendChild(btn);
+  });
+}
+
+function answerQuiz(choice){
+  const track = getTrack(state.currentTrackId);
+  const quiz = track.quiz;
+  const buttons = [...el.quizBox.querySelectorAll(".quiz-option")];
+  buttons.forEach((btn, idx)=>{
+    btn.disabled = true;
+    if(idx === quiz.answer) btn.classList.add("correct");
+    if(idx === choice && idx !== quiz.answer) btn.classList.add("wrong");
+  });
+  const score = choice === quiz.answer ? 100 : 0;
+  scores[track.id] = score;
+  saveScores();
+  updateStats();
+  const p = document.createElement("p");
+  p.className = "feedback";
+  p.innerHTML = `${choice === quiz.answer ? '<strong>Correct.</strong>' : '<strong>Not quite.</strong>'} ${quiz.why}`;
+  el.quizBox.appendChild(p);
+}
+
+function bindEvents(){
+  el.revealFlash.addEventListener("click", revealFlash);
+  el.flashcard.addEventListener("click", revealFlash);
+  el.flashcard.addEventListener("keydown", e => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      revealFlash();
+    }
+  });
+  el.nextFlash.addEventListener("click", ()=>{
+    state.flashIndex += 1;
+    renderFlash(true);
+  });
+  el.trackSearch.addEventListener("input", e => {
+    const q = e.target.value.toLowerCase().trim();
+    state.filtered = !q ? TRACKS : TRACKS.filter(track => {
+      const hay = [track.title, track.summary, track.area, ...track.concepts.map(c=>c[0] + ' ' + c[1])].join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+    if(!state.filtered.some(t => t.id === state.currentTrackId) && state.filtered.length){
+      state.currentTrackId = state.filtered[0].id;
+    }
+    renderAll();
+  });
+  el.modeButtons.forEach(btn => btn.addEventListener("click", () => {
+    state.mode = btn.dataset.mode;
+    el.modeButtons.forEach(b => b.classList.toggle("active", b === btn));
+    el.modeDescription.textContent = MODES[state.mode].description;
+    renderTrackDetail();
+  }));
+  el.jumpToTrack.addEventListener("click", () => {
+    document.getElementById("trackDetail").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+}
+
+function renderAll(){
+  renderTrackList();
+  renderTrackDetail();
+  renderFlash(true);
+  renderQuiz();
+  updateStats();
+}
+
+bindEvents();
+renderAll();
