@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SC-500 Security Lab — visual, exam-focused, job-oriented study app." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';" />
+  <title>SC-500 Security Lab</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">Microsoft SC-500</p><h1>Security Lab</h1></div>
+    <div class="mode-switch" role="group" aria-label="Learning mode">
+      <button class="mode active" data-mode="beginner">Beginner</button>
+      <button class="mode" data-mode="exam">SC-500 Exam</button>
+      <button class="mode" data-mode="engineer">Security Engineer</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero card">
+      <div><p class="eyebrow">Your learning dashboard</p><h2>Learn visually. Test actively. Apply at work.</h2><p id="modeDescription">Start with a simple mental model, then layer in Microsoft security controls.</p></div>
+      <div class="readiness"><div class="ring"><span>8%</span></div><p>Exam readiness</p></div>
+    </section>
+
+    <section class="stats">
+      <article class="metric"><strong id="lessonsDone">0</strong><span>Lessons complete</span></article>
+      <article class="metric"><strong id="quizScore">—</strong><span>Latest quiz</span></article>
+      <article class="metric"><strong id="flashcardsSeen">0</strong><span>Flashcards reviewed</span></article>
+      <article class="metric"><strong>12</strong><span>Learning tracks</span></article>
+    </section>
+
+    <section><div class="section-heading"><div><p class="eyebrow">Roadmap</p><h2>SC-500 learning tracks</h2></div></div><div id="tracks" class="track-grid"></div></section>
+
+    <section class="lesson-layout">
+      <aside class="card"><p class="eyebrow">Module 1</p><h2>Microsoft Entra security</h2><nav id="lessonNav" class="lesson-nav" aria-label="Entra lessons"></nav></aside>
+      <article class="card lesson-card" id="lessonPanel" aria-live="polite"></article>
+    </section>
+
+    <section class="two-col">
+      <article class="card"><p class="eyebrow">Visual mental model</p><h2>Conditional Access decision flow</h2><div class="diagram"><div class="node">User / Workload</div><div class="arrow">→</div><div class="node">Microsoft Entra ID</div><div class="arrow">→</div><div class="node highlight">Conditional Access</div><div class="arrow">→</div><div class="node">Allow / MFA / Block</div></div><p class="hint">Think: <strong>signal → policy → decision → enforcement</strong>.</p></article>
+      <article class="card"><p class="eyebrow">Exam trap</p><h2>RBAC vs PIM vs Conditional Access</h2><div class="compare"><div><strong>RBAC</strong><span>What can this identity do?</span></div><div><strong>PIM</strong><span>When can privilege become active?</span></div><div><strong>Conditional Access</strong><span>Under what conditions is access allowed?</span></div></div></article>
+    </section>
+
+    <section class="two-col">
+      <article class="card"><p class="eyebrow">Flashcards</p><div id="flashcard" class="flashcard" tabindex="0" role="button"><span class="small">Tap to reveal</span><h2 id="flashFront">Managed Identity</h2><p id="flashBack" hidden></p></div><div class="actions"><button id="revealFlash">Reveal</button><button id="nextFlash" class="secondary">Next card</button></div></article>
+      <article class="card"><p class="eyebrow">Quick quiz</p><div id="quiz"></div></article>
+    </section>
+  </main>
+
+  <footer><p>SC-500 Security Lab v0.1 — original study content mapped to Microsoft SC-500 objectives.</p></footer>
+  <script src="./app.js"></script>
+</body>
+</html>
