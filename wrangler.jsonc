@@ -4,5 +4,12 @@
   "compatibility_date": "2026-08-25",
   "assets": {
     "directory": "."
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sc500-progress-db",
+      "database_id": "7257d517-b8a4-43c7-91af-574912051872"
+    }
+  ]
 }
