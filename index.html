@@ -3,65 +3,60 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SC-500 Security Lab — interactive, visual learning for cloud and AI security." />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';" />
-  <title>SC-500 Security Lab</title>
-  <link rel="stylesheet" href="./styles.css" />
-  <link rel="stylesheet" href="./simulation.css" />
-  <link rel="stylesheet" href="./study-coach.css" />
+  <meta name="description" content="A visual, interactive SC-500 study lab built to make Microsoft cloud and AI security easier to understand, remember, and apply." />
+  <meta property="og:title" content="SC-500 Security Lab" />
+  <meta property="og:description" content="Understand Microsoft cloud and AI security through visual lessons, Azure-like walkthroughs, attack/defense views, quizzes, and practical security-engineer scenarios." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>SC-500 Security Lab — Learn Cloud & AI Security Visually</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./landing.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <div class="brand-block">
-        <div class="brand-mark" aria-hidden="true">S5</div>
-        <div><p class="eyebrow">Microsoft SC-500</p><h1>Security Lab</h1></div>
-      </div>
-      <div class="search-wrap"><input id="trackSearch" type="search" placeholder="Search tracks or concepts" aria-label="Search tracks" /></div>
-      <nav><p class="nav-label">Learning tracks</p><div id="trackList" class="track-list"></div></nav>
-      <div class="sidebar-card"><p class="eyebrow">Daily goal</p><h3>One concept deeply</h3><p class="subtext">Read → visualize → answer → explain it back. Ten focused minutes beats passive scrolling.</p></div>
-    </aside>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="/"><span class="logo">S5</span><span>SC-500 Security Lab</span></a>
+      <span class="nav-link">Built for exam prep + real security work</span>
+    </nav>
 
-    <main class="main-panel">
-      <header class="topbar">
-        <div><p class="eyebrow">Interactive visual study</p><h2>Understand first. Memorize second.</h2><p class="subtext" id="modeDescription">Use simple mental models first, then switch to exam language or a security-engineer view.</p></div>
-        <div class="mode-switch" role="group" aria-label="Learning mode">
-          <button class="mode active" data-mode="beginner">Beginner</button><button class="mode" data-mode="exam">SC-500 Exam</button><button class="mode" data-mode="engineer">Security Engineer</button>
+    <main>
+      <section class="hero">
+        <span class="eyebrow">Microsoft SC-500 • Visual Security Learning</span>
+        <h1>Learn cloud and AI security by seeing how it actually works.</h1>
+        <p>SC-500 Security Lab is a personal learning project built to turn Microsoft security concepts into simple mental models, interactive architecture views, Azure-like walkthroughs, attack-and-defense scenarios, and exam-focused practice.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="./lab.html">Enter the Security Lab</a>
+          <a class="btn" href="#why">Why this exists</a>
         </div>
-      </header>
-
-      <section class="hero-grid">
-        <article class="card overview-card">
-          <p class="eyebrow">Readiness</p>
-          <div class="readiness-row"><div class="ring" id="readinessRing"><span id="readinessValue">0%</span></div><div><h3>SC-500 progress</h3><p class="subtext">Progress is saved locally and synced to Cloudflare D1 while you are signed in.</p><div class="statline"><span><strong id="tracksDone">0</strong> / 12 tracks</span><span><strong id="lessonsComplete">0</strong> lessons complete</span><span><strong id="quizAverage">0%</strong> quiz average</span></div></div></div>
-        </article>
-        <article class="card quick-card"><p class="eyebrow">Continue</p><h3 id="todayFocus">Microsoft Entra security</h3><p class="subtext" id="todaySummary"></p><button id="jumpToLesson">Continue lesson</button></article>
       </section>
 
-      <section class="stats-grid">
-        <article class="metric"><strong>12</strong><span>Exam tracks</span></article><article class="metric"><strong id="lessonCount">48</strong><span>Deep lessons</span></article><article class="metric"><strong id="flashcardsSeen">0</strong><span>Flashcards reviewed</span></article><article class="metric"><strong id="challengeCount">0</strong><span>Checks answered</span></article>
+      <section class="preview" aria-label="Security Lab preview">
+        <div class="preview-shell">
+          <div class="preview-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="preview-body">
+            <div class="side"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+            <div class="content"><div class="hero-card"><div class="line" style="width:36%"></div><div class="line" style="width:76%"></div><div class="line" style="width:60%"></div></div><div class="mini-grid"><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div></div>
+          </div>
+        </div>
       </section>
 
-      <section class="content-grid">
-        <div class="left-stack">
-          <article class="card track-detail" id="trackDetail"></article>
-          <article class="card lesson-studio" id="lessonStudio"></article>
+      <section class="features">
+        <h2>Built to make security concepts stick.</h2>
+        <div class="grid">
+          <article class="feature"><strong>Visual first</strong><p>Architecture flows, Azure-inspired screens, attack paths, and control simulations make abstract services easier to understand.</p></article>
+          <article class="feature"><strong>Exam focused</strong><p>SC-500 objective areas, exam traps, rapid checks, flashcards, and scenario questions help turn understanding into recall.</p></article>
+          <article class="feature"><strong>Engineer minded</strong><p>Each topic connects configuration choices to attack surface, monitoring, least privilege, and practical operational decisions.</p></article>
         </div>
-        <aside class="right-rail">
-          <article class="card"><div class="section-head slim"><div><p class="eyebrow">Flashcards</p><h3>Quick recall</h3></div><span id="flashcardTag" class="pill">Track set</span></div><div id="flashcard" class="flashcard" tabindex="0" role="button" aria-label="Flashcard, press to reveal"><span class="small">Tap to reveal</span><h3 id="flashFront">Loading…</h3><p id="flashBack" hidden></p></div><div class="actions"><button id="revealFlash">Reveal</button><button id="nextFlash" class="secondary">Next</button></div></article>
-          <article class="card"><div class="section-head slim"><div><p class="eyebrow">Track quiz</p><h3>Exam-style check</h3></div></div><div id="quizBox"></div></article>
-        </aside>
+      </section>
+
+      <section class="about" id="why">
+        <h2>Why I created this</h2>
+        <p>Microsoft security documentation is comprehensive, but learning from documentation alone can feel fragmented. This project was created to bring the important SC-500 concepts into one focused place where they can be explored visually and repeatedly.</p>
+        <p>The goal is not just to pass an exam. It is to understand why a security control exists, where it lives, what attack path it breaks, and how a security engineer would verify that it is actually working.</p>
       </section>
     </main>
+
+    <footer class="footer">Independent learning project. Microsoft product names are used only to describe the technologies being studied.</footer>
   </div>
-  <script src="./tracks-1.js"></script>
-  <script src="./tracks-2.js"></script>
-  <script src="./tracks-3.js"></script>
-  <script src="./tracks-4.js"></script>
-  <script src="./cloud-sync.js"></script>
-  <script src="./app.js"></script>
-  <script src="./azure-visuals.js"></script>
-  <script src="./azure-simulations.js"></script>
-  <script src="./study-coach.js"></script>
 </body>
 </html>
