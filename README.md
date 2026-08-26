@@ -1,47 +1,30 @@
-# SC-500 Security Lab v0.2
+# SC-500 Security Lab v0.3
 
-A static, minimal, modern study app for Microsoft SC-500.
+Interactive visual study app for Microsoft SC-500.
 
-## What's new in v0.2
-- redesigned minimal modern interface
-- all 12 SC-500 learning tracks included
-- Beginner / SC-500 Exam / Security Engineer learning modes
-- visual flow diagram for every track
-- exam trap comparisons for every track
-- per-track scenario quiz
-- per-track flashcards
-- local browser progress tracking
-- static deployment ready for Cloudflare Workers
+## v0.3 highlights
+- redesigned learning flow focused on understanding first
+- 48 interactive concept lessons generated across all 12 SC-500 tracks
+- Attack view / Defense view for every lesson
+- original visual memory flows built with HTML/CSS
+- 30-second knowledge checks
+- teach-it-back prompts with model answers
+- Beginner / SC-500 Exam / Security Engineer modes
+- flashcards and track quizzes
+- track + lesson progress stored locally in the browser
+- no backend, database, API keys, cookies or remote requests
+- designed for Cloudflare Workers protected with Cloudflare Access
 
-## Included learning tracks
-1. Microsoft Entra security
-2. Azure Key Vault
-3. Governance, RBAC and compliance
-4. Azure Storage security
-5. Azure SQL and database security
-6. Azure network security
-7. AI security
-8. Servers and virtual machines
-9. Apps, APIs, containers and AKS
-10. Microsoft Defender for Cloud
-11. Microsoft Sentinel
-12. Microsoft Security Copilot
+## Learning model
 
-## Local testing
-Use a simple HTTP server from the project directory:
+`Concept → Visual flow → Attack scenario → Defense → Teach it back → Quick check`
 
-```bash
-python3 -m http.server 8080
-```
+The goal is practical understanding and recall rather than passive reading.
 
-Then open `http://localhost:8080`.
+## Security
 
-## Deployment
-This repository is configured for Cloudflare Workers static asset deployment with `wrangler.jsonc`.
+The app remains static. Keep Cloudflare Access enabled in front of the deployed Worker. No application credentials or secrets are required.
 
-When you push these files to GitHub, Cloudflare should auto-deploy using your existing connected project.
+## Content
 
-## Notes
-- Content is original and summarized from the official SC-500 objective areas.
-- No backend, database or API keys are required.
-- Progress is stored locally in the browser.
+Study material is original and mapped to the official Microsoft SC-500 objective areas. It does not reproduce Microsoft Learn course text or images verbatim.
