@@ -1,30 +1,50 @@
-# SC-500 Security Lab v0.3
+# SC-500 Security Lab
 
-Interactive visual study app for Microsoft SC-500.
+A visual, interactive Microsoft SC-500 study app deployed on Cloudflare Workers and protected with Cloudflare Access.
 
-## v0.3 highlights
-- redesigned learning flow focused on understanding first
-- 48 interactive concept lessons generated across all 12 SC-500 tracks
-- Attack view / Defense view for every lesson
-- original visual memory flows built with HTML/CSS
-- 30-second knowledge checks
-- teach-it-back prompts with model answers
-- Beginner / SC-500 Exam / Security Engineer modes
-- flashcards and track quizzes
-- track + lesson progress stored locally in the browser
-- no backend, database, API keys, cookies or remote requests
-- designed for Cloudflare Workers protected with Cloudflare Access
+## Current architecture
+- Static learning UI served from Cloudflare Workers assets
+- Cloudflare Access protects the app
+- Cloudflare D1 stores synced progress
+- Browser localStorage remains the offline/fallback cache
+- GitHub main branch auto-deploys to Cloudflare
 
-## Learning model
+## D1 progress sync
+The Worker exposes authenticated API routes under `/api/*` and reads the signed-in user from Cloudflare Access.
 
-`Concept → Visual flow → Attack scenario → Defense → Teach it back → Quick check`
+Stored state includes:
+- track completion
+- quiz score per track
+- flashcard review count
 
-The goal is practical understanding and recall rather than passive reading.
+The Worker lazily creates the required D1 tables on the first authenticated API request. `schema.sql` is also included for reference/manual initialization.
 
-## Security
+## Key files
+- `worker/index.js` — backend API and D1 access
+- `cloud-sync.js` — browser-to-D1 sync layer
+- `wrangler.jsonc` — Worker, assets and D1 binding configuration
+- `schema.sql` — D1 schema reference
 
-The app remains static. Keep Cloudflare Access enabled in front of the deployed Worker. No application credentials or secrets are required.
+## Deployment
+Cloudflare build/deploy is connected to GitHub. Pushing to `main` triggers deployment automatically.
 
-## Content
+## Learning tracks
+1. Microsoft Entra security
+2. Azure Key Vault
+3. Governance, RBAC and compliance
+4. Azure Storage security
+5. Azure SQL and database security
+6. Azure network security
+7. AI security
+8. Servers and virtual machines
+9. Apps, APIs, containers and AKS
+10. Microsoft Defender for Cloud
+11. Microsoft Sentinel
+12. Microsoft Security Copilot
 
-Study material is original and mapped to the official Microsoft SC-500 objective areas. It does not reproduce Microsoft Learn course text or images verbatim.
+## Security notes
+- No application password database
+- Cloudflare Access supplies user identity
+- D1 queries use prepared statements
+- API responses are no-store
+- restrictive CSP and browser security headers are included

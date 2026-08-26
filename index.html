@@ -3,26 +3,132 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SC-500 Security Lab — interactive, visual learning for cloud and AI security." />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';" />
+  <meta name="description" content="SC-500 Security Lab — visual, minimal, exam-focused learning app for cloud and AI security." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';" />
   <title>SC-500 Security Lab</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <div class="brand-block"><div class="brand-mark" aria-hidden="true">S5</div><div><p class="eyebrow">Microsoft SC-500</p><h1>Security Lab</h1></div></div>
-      <div class="search-wrap"><input id="trackSearch" type="search" placeholder="Search tracks or concepts" aria-label="Search tracks" /></div>
-      <nav><p class="nav-label">Learning tracks</p><div id="trackList" class="track-list"></div></nav>
-      <div class="sidebar-card"><p class="eyebrow">Daily goal</p><h3>One concept deeply</h3><p class="subtext">Read → visualize → answer → explain it back. Ten focused minutes beats passive scrolling.</p></div>
+      <div class="brand-block">
+        <div class="brand-mark">S5</div>
+        <div>
+          <p class="eyebrow">Microsoft SC-500</p>
+          <h1>Security Lab</h1>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <input id="trackSearch" type="search" placeholder="Search tracks or concepts" aria-label="Search tracks" />
+      </div>
+
+      <nav>
+        <p class="nav-label">Learning tracks</p>
+        <div id="trackList" class="track-list"></div>
+      </nav>
+
+      <div class="sidebar-card">
+        <p class="eyebrow">Study rhythm</p>
+        <h3>Daily pattern</h3>
+        <ul>
+          <li>15 min concept reading</li>
+          <li>15 min visual review</li>
+          <li>15 min scenario quiz</li>
+          <li>10 min flashcards</li>
+        </ul>
+      </div>
     </aside>
+
     <main class="main-panel">
-      <header class="topbar"><div><p class="eyebrow">Interactive visual study</p><h2>Understand first. Memorize second.</h2><p class="subtext" id="modeDescription">Use simple mental models first, then switch to exam language or a security-engineer view.</p></div><div class="mode-switch" role="group" aria-label="Learning mode"><button class="mode active" data-mode="beginner">Beginner</button><button class="mode" data-mode="exam">SC-500 Exam</button><button class="mode" data-mode="engineer">Security Engineer</button></div></header>
-      <section class="hero-grid"><article class="card overview-card"><p class="eyebrow">Readiness</p><div class="readiness-row"><div class="ring" id="readinessRing"><span id="readinessValue">0%</span></div><div><h3>SC-500 progress</h3><p class="subtext">Track + lesson completion is stored only in this browser.</p><div class="statline"><span><strong id="tracksDone">0</strong> / 12 tracks</span><span><strong id="lessonsComplete">0</strong> lessons complete</span><span><strong id="quizAverage">0%</strong> quiz average</span></div></div></div></article><article class="card quick-card"><p class="eyebrow">Continue</p><h3 id="todayFocus">Microsoft Entra security</h3><p class="subtext" id="todaySummary"></p><button id="jumpToLesson">Continue lesson</button></article></section>
-      <section class="stats-grid"><article class="metric"><strong>12</strong><span>Exam tracks</span></article><article class="metric"><strong id="lessonCount">48</strong><span>Interactive lessons</span></article><article class="metric"><strong id="flashcardsSeen">0</strong><span>Flashcards reviewed</span></article><article class="metric"><strong id="challengeCount">0</strong><span>Checks answered</span></article></section>
-      <section class="content-grid"><div class="left-stack"><article class="card track-detail" id="trackDetail"></article><article class="card lesson-studio" id="lessonStudio"></article></div><aside class="right-rail"><article class="card"><div class="section-head slim"><div><p class="eyebrow">Flashcards</p><h3>Quick recall</h3></div><span id="flashcardTag" class="pill">Track set</span></div><div id="flashcard" class="flashcard" tabindex="0" role="button" aria-label="Flashcard, press to reveal"><span class="small">Tap to reveal</span><h3 id="flashFront">Loading…</h3><p id="flashBack" hidden></p></div><div class="actions"><button id="revealFlash">Reveal</button><button id="nextFlash" class="secondary">Next</button></div></article><article class="card"><div class="section-head slim"><div><p class="eyebrow">Track quiz</p><h3>Exam-style check</h3></div></div><div id="quizBox"></div></article></aside></section>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Minimal • modern • visual</p>
+          <h2>Learn cloud and AI security the way you work</h2>
+          <p class="subtext" id="modeDescription">Use simple mental models first, then switch to exam language or a security-engineer view.</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="mode-switch" role="group" aria-label="Learning mode">
+            <button class="mode active" data-mode="beginner">Beginner</button>
+            <button class="mode" data-mode="exam">SC-500 Exam</button>
+            <button class="mode" data-mode="engineer">Security Engineer</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero-grid">
+        <article class="card overview-card">
+          <p class="eyebrow">Readiness</p>
+          <div class="readiness-row">
+            <div class="ring" id="readinessRing"><span id="readinessValue">0%</span></div>
+            <div>
+              <h3>SC-500 progress</h3>
+              <p class="subtext">Progress is saved locally and synced to Cloudflare D1 when you are signed in.</p>
+              <div class="statline">
+                <span><strong id="tracksDone">0</strong> / 12 tracks completed</span>
+                <span><strong id="quizAverage">0%</strong> quiz average</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card quick-card">
+          <p class="eyebrow">Today’s focus</p>
+          <h3 id="todayFocus">Microsoft Entra security</h3>
+          <p class="subtext" id="todaySummary">Build strong identity-first habits before expanding into network, data and AI controls.</p>
+          <button id="jumpToTrack">Open track</button>
+        </article>
+      </section>
+
+      <section class="stats-grid">
+        <article class="metric"><strong id="conceptCount">12</strong><span>Tracks loaded</span></article>
+        <article class="metric"><strong id="flashcardsSeen">0</strong><span>Flashcards reviewed</span></article>
+        <article class="metric"><strong id="lessonsDone">0</strong><span>Tracks completed</span></article>
+        <article class="metric"><strong id="currentStreak">1</strong><span>Consistency target</span></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="card track-detail" id="trackDetail"></article>
+
+        <aside class="right-rail">
+          <article class="card flashcard-card">
+            <div class="section-head slim">
+              <div>
+                <p class="eyebrow">Flashcards</p>
+                <h3>Quick recall</h3>
+              </div>
+              <span id="flashcardTag" class="pill">Track set</span>
+            </div>
+            <div id="flashcard" class="flashcard" tabindex="0" role="button" aria-label="Flashcard, press to reveal">
+              <span class="small">Tap to reveal answer</span>
+              <h3 id="flashFront">Loading…</h3>
+              <p id="flashBack" hidden></p>
+            </div>
+            <div class="actions">
+              <button id="revealFlash">Reveal</button>
+              <button id="nextFlash" class="secondary">Next card</button>
+            </div>
+          </article>
+
+          <article class="card quiz-card">
+            <div class="section-head slim">
+              <div>
+                <p class="eyebrow">Scenario quiz</p>
+                <h3>One question at a time</h3>
+              </div>
+            </div>
+            <div id="quizBox"></div>
+          </article>
+        </aside>
+      </section>
     </main>
   </div>
-  <script src="./tracks-1.js"></script><script src="./tracks-2.js"></script><script src="./tracks-3.js"></script><script src="./tracks-4.js"></script><script src="./app.js"></script>
+
+  <script src="./tracks-1.js"></script>
+  <script src="./tracks-2.js"></script>
+  <script src="./tracks-3.js"></script>
+  <script src="./tracks-4.js"></script>
+  <script src="./app.js"></script>
+  <script src="./cloud-sync.js"></script>
 </body>
 </html>
