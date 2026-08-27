@@ -33,3 +33,14 @@ Each explainer should answer:
 6. What should a security engineer verify?
 
 Motion Canvas source is used as a dependency; its project is MIT licensed.
+
+## Included scenes
+
+- Conditional Access — why identity context is needed beyond a password.
+- Private Endpoint — why PaaS services need private reachability.
+- Managed Identity — why workloads should avoid stored credentials.
+- Azure Key Vault — why secrets and cryptographic material need centralized protection.
+- Microsoft Defender for Cloud — why cloud posture must be assessed continuously.
+- Microsoft Sentinel — why security telemetry needs centralized detection and automated response.
+
+These scenes are intentionally short and reusable. The next step is to export them as WebM/MP4 assets and embed the matching clip into each lesson.
