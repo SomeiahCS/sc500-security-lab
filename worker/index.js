@@ -2,6 +2,10 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    if (url.pathname === '/lab' || url.pathname === '/lab/') {
+      return Response.redirect(new URL('/lab.html', url.origin).toString(), 302);
+    }
+
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
     if (!ctx.access) return json({ error: 'Access authentication required' }, 401);
 
