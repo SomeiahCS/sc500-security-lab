@@ -48,3 +48,15 @@ Cloudflare build/deploy is connected to GitHub. Pushing to `main` triggers deplo
 - D1 queries use prepared statements
 - API responses are no-store
 - restrictive CSP and browser security headers are included
+
+
+## Design skills
+
+The repository includes an optional web-design skill setup for compatible coding agents.
+
+- macOS / Linux: `bash scripts/install-design-skills.sh`
+- Windows PowerShell: `powershell -ExecutionPolicy Bypass -File scripts/install-design-skills.ps1`
+- Design workflow and project rules: `DESIGN_SKILLS.md`
+- Agent-facing UI instructions: `AGENTS.md`
+
+The setup references design skills from Emil Kowalski, garden-skills, Elaya Design, Meng To, Jakub Krehel, tastemaker, and Owl Listener.
