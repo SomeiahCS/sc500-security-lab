@@ -5,17 +5,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
   <meta name="robots" content="noindex">
-  <title>Register — SC-500 Security Lab</title>
+  <title>Create account</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./auth.css">
 </head>
 <body data-page="register">
   <main class="auth-shell">
+    <section class="auth-art" aria-hidden="true">
+      <div class="cloud cloud-a"></div><div class="cloud cloud-b"></div>
+      <div class="lock-illustration"><div class="lock-loop"></div><div class="lock-body"><span>+</span></div></div>
+      <div class="mini-key"></div>
+      <span class="spark s1">✦</span><span class="spark s2">✦</span>
+    </section>
     <section class="panel">
       <h1>Create account</h1>
-      <p id="registerIntro">Registration is invite-only. Use the email address your invitation was created for.</p>
+      <p id="registerIntro">Use the email address your invitation was created for.</p>
       <form id="authForm" autocomplete="on">
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254"></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"></div>
         <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="new-password" required minlength="12" maxlength="128"></div>
         <div class="field"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required minlength="12" maxlength="128"></div>
         <div class="field" id="bootstrapField" hidden><label for="bootstrapCode">Admin setup code</label><input id="bootstrapCode" name="bootstrapCode" type="password" autocomplete="off" maxlength="256"></div>
