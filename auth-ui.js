@@ -1,6 +1,21 @@
 const form=document.getElementById('authForm');
 const message=document.getElementById('message');
 const mode=document.body.dataset.page;
+if(mode==='register'){
+  const invite=new URLSearchParams(location.search).get('invite')||'';
+  const bootstrapField=document.getElementById('bootstrapField');
+  const bootstrapInput=document.getElementById('bootstrapCode');
+  const intro=document.getElementById('registerIntro');
+  if(invite){
+    if(bootstrapField)bootstrapField.hidden=true;
+    if(bootstrapInput)bootstrapInput.required=false;
+    if(intro)intro.textContent='Registration is invite-only. Use the email address your invitation was created for.';
+  }else{
+    if(bootstrapField)bootstrapField.hidden=false;
+    if(bootstrapInput)bootstrapInput.required=true;
+    if(intro)intro.textContent='Initial administrator setup. Enter the one-time admin setup code configured for this deployment.';
+  }
+}
 if(form){
   form.addEventListener('submit',async event=>{
     event.preventDefault();
@@ -9,6 +24,7 @@ if(form){
     if(mode==='register'){
       if(payload.password!==payload.confirmPassword){message.textContent='Passwords do not match.';message.className='message error';return;}
       payload.invite=new URLSearchParams(location.search).get('invite')||'';
+      if(payload.invite)delete payload.bootstrapCode;
       delete payload.confirmPassword;
     }
     message.textContent=mode==='register'?'Creating account…':'Signing in…';
