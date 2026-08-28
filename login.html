@@ -5,22 +5,28 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
   <meta name="robots" content="noindex">
-  <title>Sign in — SC-500 Security Lab</title>
+  <title>Sign in</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./auth.css">
 </head>
 <body data-page="login">
   <main class="auth-shell">
+    <section class="auth-art" aria-hidden="true">
+      <div class="cloud cloud-a"></div><div class="cloud cloud-b"></div>
+      <div class="lock-illustration"><div class="lock-loop"></div><div class="lock-body"><span>•</span></div></div>
+      <div class="mini-key"></div>
+      <span class="spark s1">✦</span><span class="spark s2">✦</span>
+    </section>
     <section class="panel">
-      <h1>Welcome back</h1>
-      <p>Sign in to continue your SC-500 progress.</p>
+      <h1>Sign in</h1>
+      <p>Welcome back. Pick up where you left off.</p>
       <form id="authForm" autocomplete="on">
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254"></div>
-        <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128"></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"></div>
+        <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="12" maxlength="128"></div>
         <button type="submit">Sign in</button>
         <div id="message" class="message" aria-live="polite"></div>
       </form>
-      <p class="meta">Have an invite? <a href="/register.html">Create your account</a></p>
+      <p class="meta">New here? <a href="/register.html">Create an account</a></p>
     </section>
   </main>
   <script src="./auth-ui.js"></script>
