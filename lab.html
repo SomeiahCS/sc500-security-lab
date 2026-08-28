@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./simulation.css" />
   <link rel="stylesheet" href="./study-coach.css" />
   <link rel="stylesheet" href="./concept-origin.css" />
+  <link rel="stylesheet" href="./prep-dashboard.css" />
 </head>
 <body class="prep-ui">
   <div class="app-shell">
@@ -56,10 +57,7 @@
             <button id="jumpToLesson">Continue</button>
           </div>
           <div class="continue-art" aria-hidden="true">
-            <div class="art-cloud"></div>
-            <div class="art-card art-card-a"></div>
-            <div class="art-card art-card-b"></div>
-            <span>✓</span>
+            <div class="art-cloud"></div><div class="art-card art-card-a"></div><div class="art-card art-card-b"></div><span>✓</span>
           </div>
         </section>
       </section>
@@ -73,10 +71,7 @@
       </section>
 
       <section id="studyWorkspace" class="study-workspace is-hidden">
-        <div class="workspace-head">
-          <button id="backToOverview" class="back-button" type="button">← Overview</button>
-          <span>Current prep track</span>
-        </div>
+        <div class="workspace-head"><button id="backToOverview" class="back-button" type="button">← Overview</button><span>Current prep track</span></div>
         <section class="content-grid">
           <div class="left-stack">
             <article class="card track-detail" id="trackDetail"></article>
@@ -89,9 +84,7 @@
         </section>
       </section>
 
-      <div class="hidden-metrics" aria-hidden="true">
-        <span id="lessonCount">48</span><span id="challengeCount">0</span>
-      </div>
+      <div class="hidden-metrics" aria-hidden="true"><span id="lessonCount">48</span><span id="challengeCount">0</span></div>
     </main>
   </div>
   <script src="./auth-client.js"></script>
