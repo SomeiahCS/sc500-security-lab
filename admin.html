@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SC-500 Admin</title>
+<link rel="stylesheet" href="./auth.css">
+</head>
+<body>
+<main class="admin-shell">
+<div class="toolbar"><div><h1>SC-500 Admin</h1><p>Manage learner invitations.</p></div><a class="button" href="/app">Back to lab</a></div>
+<section class="grid">
+<article class="panel"><h2>Create invitation</h2><form id="inviteForm"><div class="field"><label for="inviteEmail">Email</label><input id="inviteEmail" name="email" type="email" required></div><button type="submit">Create invite</button></form><div id="inviteMessage" class="message"></div><div id="inviteResult"></div></article>
+<article class="panel"><h2>Registered users</h2><div id="userList" class="list"></div></article>
+</section>
+<section class="panel"><h2>Recent invitations</h2><div id="inviteList" class="list"></div></section>
+</main>
+<script src="./admin.js"></script>
+</body>
+</html>
