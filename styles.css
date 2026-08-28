@@ -52,3 +52,11 @@ input:focus{border-color:#4f8cff;box-shadow:0 0 0 4px rgba(79,140,255,.1)}
 @media(max-width:1100px){.sidebar{border-bottom-color:#1b2a40}}
 
 .session-card strong{display:block;overflow-wrap:anywhere}.session-actions{display:flex;gap:8px;align-items:center;margin-top:12px}.session-actions a,.session-actions button{border:1px solid #2a3d59;background:#0d1928;color:#cfd9e7;padding:8px 10px;border-radius:10px;font-size:.8rem;font-weight:800;text-decoration:none}.session-actions button{cursor:pointer}
+
+.nav-spacer{width:1px;height:1px}
+.concept-chip{display:inline-flex;align-items:center;gap:7px}
+.concept-icon{font-size:.9rem;line-height:1}
+.lesson-tab{display:inline-flex;align-items:center;gap:7px}
+.lesson-icon{font-size:.9rem;line-height:1}
+.concept-title{display:flex;align-items:center;gap:9px}
+.concept-title-icon{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:10px;background:#12233a;border:1px solid #2b4160;font-size:1rem}
