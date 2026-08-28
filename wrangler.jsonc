@@ -1,12 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sc500-security-lab",
-  "main": "./worker/index.js",
+  "main": "./worker/custom-index-v3.js",
   "compatibility_date": "2026-08-25",
+  "vars": {
+    "SC500_BOOTSTRAP_FIRST_ADMIN": "true"
+  },
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": ["/app", "/app/", "/lab.html", "/admin", "/admin/", "/admin.html", "/app-api/*"]
   },
   "d1_databases": [
     {

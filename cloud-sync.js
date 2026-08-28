@@ -9,7 +9,7 @@ async function postJson(path, body) {
   try {
     const response = await fetch(path, {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 'x-csrf-token': window.SC500_AUTH?.csrfToken?.() || '' },
       body: JSON.stringify(body),
       credentials: 'same-origin'
     });
@@ -27,40 +27,40 @@ localStorage.setItem = function(key, value) {
     const before = parseObject(previous);
     const after = parseObject(value);
     const ids = new Set([...Object.keys(before), ...Object.keys(after)]);
-    for (const trackId of ids) if (!!before[trackId] !== !!after[trackId]) postJson('/api/progress', { track_id: trackId, completed: !!after[trackId] });
+    for (const trackId of ids) if (!!before[trackId] !== !!after[trackId]) postJson('/app-api/progress', { track_id: trackId, completed: !!after[trackId] });
   }
 
   if (key === 'sc500-lessons-v3') {
     const before = parseObject(previous);
     const after = parseObject(value);
     const ids = new Set([...Object.keys(before), ...Object.keys(after)]);
-    for (const lessonId of ids) if (!!before[lessonId] !== !!after[lessonId]) postJson('/api/lesson', { lesson_id: lessonId, completed: !!after[lessonId] });
+    for (const lessonId of ids) if (!!before[lessonId] !== !!after[lessonId]) postJson('/app-api/lesson', { lesson_id: lessonId, completed: !!after[lessonId] });
   }
 
   if (key === 'sc500-confidence-v1') {
     const before = parseObject(previous);
     const after = parseObject(value);
     for (const [lessonId, confidence] of Object.entries(after)) {
-      if (before[lessonId] !== confidence) postJson('/api/confidence', { lesson_id: lessonId, confidence: Number(confidence) });
+      if (before[lessonId] !== confidence) postJson('/app-api/confidence', { lesson_id: lessonId, confidence: Number(confidence) });
     }
   }
 
   if (key === 'sc500-scores-v3') {
     const before = parseObject(previous);
     const after = parseObject(value);
-    for (const [trackId, score] of Object.entries(after)) if (before[trackId] !== score) postJson('/api/quiz', { track_id: trackId, score: Number(score) });
+    for (const [trackId, score] of Object.entries(after)) if (before[trackId] !== score) postJson('/app-api/quiz', { track_id: trackId, score: Number(score) });
   }
 
   if (key === 'sc500-flashcards-v3') {
     const increment = Number(value || 0) - Number(previous || 0);
-    if (increment > 0) postJson('/api/flashcards', { increment });
+    if (increment > 0) postJson('/app-api/flashcards', { increment });
   }
 };
 
 async function loadCloudState() {
   if (sessionStorage.getItem(CLOUD_SYNC_FLAG) === '1') return;
   try {
-    const response = await fetch('/api/state', { credentials: 'same-origin', cache: 'no-store' });
+    const response = await fetch('/app-api/state', { credentials: 'same-origin', cache: 'no-store' });
     if (!response.ok) return;
     const cloud = await response.json();
     const localProgress = parseObject(localStorage.getItem('sc500-progress-v3'));
