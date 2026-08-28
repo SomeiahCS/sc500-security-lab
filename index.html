@@ -7,63 +7,79 @@
   <meta property="og:title" content="SC-500 Prep" />
   <meta property="og:description" content="A simple personal prep space for Microsoft SC-500." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#f7f9fd" />
+  <meta name="theme-color" content="#f7faff" />
   <title>SC-500 Prep</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./landing.css" />
 </head>
 <body>
   <main class="landing-shell">
-    <section class="personal-hero">
-      <div class="illustration-wrap" aria-hidden="true">
-        <svg class="desk-illustration" viewBox="0 0 760 560" role="img">
-          <defs>
-            <linearGradient id="hoodie" x1="0" x2="1"><stop stop-color="#5f7df4"/><stop offset="1" stop-color="#3459d6"/></linearGradient>
-            <linearGradient id="screen" x1="0" x2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#edf4ff"/></linearGradient>
-          </defs>
-          <path d="M78 432h594" stroke="#d9e2f2" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="145" cy="168" r="104" fill="#eef4ff"/>
-          <circle cx="595" cy="215" r="118" fill="#f3f7ff"/>
-          <path d="M80 410h590v28H80z" fill="#d7aa76"/>
-          <path d="M110 438h28l-18 92H92zM610 438h28l18 92h-28z" fill="#3b4657"/>
-          <rect x="376" y="176" width="246" height="182" rx="16" fill="#243149"/>
-          <rect x="391" y="191" width="216" height="151" rx="10" fill="url(#screen)"/>
-          <rect x="475" y="358" width="50" height="28" rx="7" fill="#73839c"/>
-          <rect x="438" y="381" width="124" height="10" rx="5" fill="#a6b3c6"/>
-          <circle cx="447" cy="258" r="34" fill="#dce8ff"/>
-          <path d="M447 225l24 11v20c0 17-11 31-24 37-13-6-24-20-24-37v-20z" fill="#5078ea"/>
-          <path d="M436 258l8 8 15-18" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M499 226h74M499 252h62M499 278h70" stroke="#a8bad9" stroke-width="9" stroke-linecap="round"/>
-          <path d="M490 226l6 6 10-13M490 252l6 6 10-13M490 278l6 6 10-13" fill="none" stroke="#65c6a4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="266" cy="182" r="55" fill="#f2c6a6"/>
-          <path d="M216 169c7-55 98-72 112-9-17-7-24-15-31-30-18 24-47 34-81 39z" fill="#18243a"/>
-          <path d="M220 228c44-18 110 4 135 64l36 86H210l10-150z" fill="url(#hoodie)"/>
-          <path d="M354 302c40 10 72 35 103 70l-17 22c-42-18-76-41-105-74z" fill="#4467de"/>
-          <path d="M453 374c23-3 41 3 56 17-19 10-37 11-55 4z" fill="#f2c6a6"/>
-          <rect x="145" y="304" width="116" height="155" rx="48" fill="#35435b"/>
-          <path d="M213 425h-75c-32 0-58 26-58 58v47h186l18-81z" fill="#26344b"/>
-          <rect x="548" y="372" width="52" height="44" rx="8" fill="#315dcc"/>
-          <path d="M560 388h25M560 398h18" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-          <path d="M95 401c-10-63 23-101 70-116 1 62-27 101-70 116z" fill="#72ba8d"/>
-          <path d="M91 401c28-57 58-86 92-91-6 49-39 82-92 91z" fill="#58a878"/>
-          <rect x="83" y="394" width="78" height="30" rx="10" fill="#e9e1d5"/>
-          <path d="M653 351c-14-56 12-92 50-108 5 49-14 86-50 108z" fill="#72ba8d"/>
-          <path d="M646 352c17-46 41-72 71-77-3 40-27 68-71 77z" fill="#58a878"/>
-          <rect x="640" y="346" width="66" height="27" rx="9" fill="#ece4d9"/>
-          <path d="M520 110c45-42 101-24 122 9" fill="none" stroke="#9fb7ef" stroke-width="3" stroke-dasharray="8 9"/>
-          <path d="M638 112l22-7-11 20z" fill="#7fa0ef"/>
-          <circle cx="132" cy="106" r="7" fill="#f1bd5e"/>
-          <circle cx="666" cy="156" r="6" fill="#8f78ef"/>
-          <path d="M601 93l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#5f84ef"/>
-        </svg>
-      </div>
-      <div class="personal-note">
-        <span class="tiny-kicker">SC-500 Prep</span>
-        <h1>Hey guys 👋</h1>
-        <p>I built this while preparing for SC-500. I wanted to make learning simpler and easier to follow.</p>
-        <p>Try it out and let me know what helps.</p>
-        <a class="try-button" href="./login.html">Try it out <span>→</span></a>
-      </div>
+    <section class="landing-card">
+      <nav class="landing-nav" aria-label="Primary">
+        <div class="nav-links">
+          <a class="active" href="#home">Home</a>
+          <a href="#prep">Prep Tracks</a>
+        </div>
+        <span class="nav-sparkles" aria-hidden="true">✦ ✧</span>
+      </nav>
+
+      <section id="home" class="landing-hero">
+        <div class="hero-illustration" aria-hidden="true">
+          <svg class="desk-illustration" viewBox="0 0 760 560">
+            <defs>
+              <linearGradient id="hoodie" x1="0" x2="1"><stop stop-color="#5b7ff2"/><stop offset="1" stop-color="#3961dd"/></linearGradient>
+              <linearGradient id="screen" x1="0" x2="1"><stop stop-color="#fbfdff"/><stop offset="1" stop-color="#edf4ff"/></linearGradient>
+            </defs>
+            <path d="M80 445h595" stroke="#d9e3f4" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="135" cy="185" r="92" fill="#eef4ff"/>
+            <circle cx="575" cy="215" r="118" fill="#f3f7ff"/>
+            <circle cx="676" cy="165" r="7" fill="#7d75ef"/>
+            <circle cx="145" cy="108" r="6" fill="#f4c55b"/>
+            <path d="M542 105c48-34 94-20 118 8" fill="none" stroke="#9cb4ef" stroke-width="3" stroke-dasharray="8 9"/>
+            <path d="M654 106l19-6-9 18z" fill="#7f9ff0"/>
+            <path d="M105 420h565v26H105z" fill="#d8aa72"/>
+            <path d="M129 446h27l-18 87h-26zM610 446h27l18 87h-27z" fill="#354157"/>
+            <rect x="388" y="185" width="235" height="177" rx="16" fill="#23324a"/>
+            <rect x="403" y="200" width="205" height="145" rx="10" fill="url(#screen)"/>
+            <rect x="472" y="362" width="54" height="27" rx="6" fill="#7c8ca3"/>
+            <rect x="438" y="387" width="124" height="9" rx="4.5" fill="#aeb9ca"/>
+            <path d="M467 222l29 13v24c0 20-13 36-29 43-16-7-29-23-29-43v-24z" fill="#5278ea"/>
+            <path d="M454 259l9 9 17-20" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M521 229h60M521 254h49M521 279h56" stroke="#afc0de" stroke-width="8" stroke-linecap="round"/>
+            <path d="M510 229l6 6 10-13M510 254l6 6 10-13M510 279l6 6 10-13" fill="none" stroke="#64c5a0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="284" cy="196" r="52" fill="#f3c5a2"/>
+            <path d="M235 181c9-53 94-68 105-7-16-8-25-16-31-29-18 22-43 31-74 36z" fill="#18253e"/>
+            <path d="M236 242c47-22 109 1 138 67l27 65H221l15-132z" fill="url(#hoodie)"/>
+            <path d="M371 307c38 10 68 31 104 70l-18 21c-42-18-78-41-104-71z" fill="#4268df"/>
+            <path d="M469 378c23-3 42 3 57 16-19 11-37 12-55 5z" fill="#f3c5a2"/>
+            <rect x="160" y="318" width="116" height="149" rx="48" fill="#34435b"/>
+            <path d="M224 432h-84c-28 0-50 22-50 50v50h190l18-82z" fill="#293952"/>
+            <rect x="547" y="376" width="58" height="48" rx="10" fill="#3566dc"/>
+            <path d="M559 393h31M559 404h23" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+            <path d="M101 409c-4-54 22-91 65-106-1 52-26 88-65 106z" fill="#69b787"/>
+            <path d="M99 409c24-48 52-75 84-81-5 43-35 72-84 81z" fill="#55a576"/>
+            <rect x="86" y="402" width="74" height="29" rx="10" fill="#eee5d8"/>
+            <path d="M648 355c-10-49 15-82 51-96 2 43-17 76-51 96z" fill="#69b787"/>
+            <path d="M643 356c15-40 38-63 66-68-3 34-25 59-66 68z" fill="#55a576"/>
+            <rect x="636" y="349" width="67" height="27" rx="9" fill="#eee6da"/>
+            <path d="M604 112l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#5f84ef"/>
+          </svg>
+        </div>
+
+        <div class="hero-note">
+          <p class="note-lead">👋 Hey guys, I built this while preparing for SC-500.</p>
+          <p>I wanted to make learning simpler and easier to follow.</p>
+          <p>Try it out and let me know what helps.</p>
+          <a class="try-button" href="./login.html">Try it out <span>→</span></a>
+        </div>
+      </section>
+
+      <section id="prep" class="landing-prep-preview" aria-label="Prep tracks preview">
+        <div class="preview-label">A quick look at what’s inside</div>
+        <div class="preview-row">
+          <span>Identity</span><span>Key Vault</span><span>Storage</span><span>Network</span><span>AI</span><span>Sentinel</span>
+        </div>
+      </section>
     </section>
   </main>
 </body>
