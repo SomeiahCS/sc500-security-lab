@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sc500-security-lab",
-  "main": "./worker/custom-index-v2.js",
+  "main": "./worker/custom-index-v3.js",
   "compatibility_date": "2026-08-25",
   "vars": {
     "SC500_BOOTSTRAP_FIRST_ADMIN": "true"
