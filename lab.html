@@ -29,56 +29,28 @@
     <main class="main-panel">
       <section id="overview" class="overview-view is-hidden" data-prep-panel="overview">
         <span class="page-sparkles" aria-hidden="true">✦ ✧</span>
-        <div class="overview-copy">
-          <span class="section-label">Overview</span>
-          <h1>Keep your prep simple.</h1>
-          <p>Pick up your current topic or jump back into the tracks whenever you’re ready.</p>
-        </div>
+        <div class="overview-copy"><span class="section-label">Overview</span><h1>Keep your prep simple.</h1><p>Pick up your current topic or jump back into the tracks whenever you’re ready.</p></div>
         <div class="overview-cards">
-          <article class="overview-tile">
-            <span>Tracks covered</span>
-            <strong><span id="tracksDone">0</span><small>/12</small></strong>
-          </article>
-          <article class="overview-tile">
-            <span>Lessons complete</span>
-            <strong id="lessonsComplete">0</strong>
-          </article>
-          <article class="overview-tile">
-            <span>Quiz average</span>
-            <strong id="quizAverage">0%</strong>
-          </article>
-          <article class="overview-tile continue-tile">
-            <span>Continue</span>
-            <strong id="todayFocus">Microsoft Entra security</strong>
-            <p id="todaySummary">Conditional Access</p>
-            <button id="jumpToLesson">Continue →</button>
-          </article>
+          <article class="overview-tile"><span>Tracks covered</span><strong><span id="tracksDone">0</span><small>/12</small></strong></article>
+          <article class="overview-tile"><span>Lessons complete</span><strong id="lessonsComplete">0</strong></article>
+          <article class="overview-tile"><span>Quiz average</span><strong id="quizAverage">0%</strong></article>
+          <article class="overview-tile continue-tile"><span>Continue</span><strong id="todayFocus">Microsoft Entra security</strong><p id="todaySummary">Conditional Access</p><button id="jumpToLesson">Continue →</button></article>
         </div>
-        <div class="mode-switch hidden-modes" role="group" aria-label="Learning mode">
-          <button class="mode active" data-mode="beginner">Beginner</button>
-          <button class="mode" data-mode="exam">Exam</button>
-          <button class="mode" data-mode="engineer">Engineer</button>
-        </div>
+        <div class="mode-switch hidden-modes" role="group" aria-label="Learning mode"><button class="mode active" data-mode="beginner">Beginner</button><button class="mode" data-mode="exam">Exam</button><button class="mode" data-mode="engineer">Engineer</button></div>
         <p id="modeDescription" class="sr-only">Use simple mental models first, then switch to exam language or a security-engineer view.</p>
         <div id="readinessValue" class="sr-only">0%</div><div id="readinessRing" class="sr-only"></div>
       </section>
 
       <section id="prepTracks" class="tracks-view" data-prep-panel="tracks">
         <span class="page-sparkles" aria-hidden="true">✦ ✧</span>
-        <div class="tracks-head">
-          <h1>Prep Tracks</h1>
-          <p>Focused paths to help you prepare for SC-500.</p>
-        </div>
+        <div class="tracks-head"><h1>Prep Tracks</h1><p>Focused paths to help you prepare for SC-500.</p></div>
         <input id="trackSearch" class="sr-only" type="search" aria-label="Search tracks" />
         <div id="trackList" class="track-list prep-track-grid"></div>
         <div class="tracks-plant" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
       </section>
 
       <section id="studyWorkspace" class="study-workspace is-hidden">
-        <div class="workspace-head">
-          <button id="backToOverview" class="back-button" type="button">← Prep Tracks</button>
-          <span>Current prep track</span>
-        </div>
+        <div class="workspace-head"><button id="backToOverview" class="back-button" type="button">← Prep Tracks</button><span>Current prep track</span></div>
         <section class="content-grid">
           <div class="left-stack">
             <article class="card track-detail" id="trackDetail"></article>
@@ -94,17 +66,6 @@
       <div class="hidden-metrics" aria-hidden="true"><span id="lessonCount">48</span><span id="flashcardsSeen">0</span><span id="challengeCount">0</span></div>
     </main>
   </div>
-  <script src="./auth-client.js"></script>
-  <script src="./tracks-1.js"></script>
-  <script src="./tracks-2.js"></script>
-  <script src="./tracks-3.js"></script>
-  <script src="./tracks-4.js"></script>
-  <script src="./cloud-sync.js"></script>
-  <script src="./concept-origin.js"></script>
-  <script src="./app.js"></script>
-  <script src="./prep-shell.js"></script>
-  <script src="./azure-visuals.js"></script>
-  <script src="./azure-simulations.js"></script>
-  <script src="./study-coach.js"></script>
+  <script src="./auth-client.js"></script><script src="./tracks-1.js"></script><script src="./tracks-2.js"></script><script src="./tracks-3.js"></script><script src="./tracks-4.js"></script><script src="./cloud-sync.js"></script><script src="./concept-origin.js"></script><script src="./app.js"></script><script src="./prep-shell.js"></script><script src="./azure-visuals.js"></script><script src="./azure-simulations.js"></script><script src="./study-coach.js"></script>
 </body>
 </html>
