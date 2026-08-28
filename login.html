@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
+  <meta name="robots" content="noindex">
+  <title>Sign in — SC-500 Security Lab</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./auth.css">
+</head>
+<body data-page="login">
+  <main class="auth-shell">
+    <a class="brand" href="/"><span class="mark">S5</span><span><strong>SC-500 Security Lab</strong><small>Secure learner sign-in</small></span></a>
+    <section class="panel">
+      <h1>Welcome back</h1>
+      <p>Sign in to continue your SC-500 progress.</p>
+      <form id="authForm" autocomplete="on">
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254"></div>
+        <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128"></div>
+        <button type="submit">Sign in</button>
+        <div id="message" class="message" aria-live="polite"></div>
+      </form>
+      <p class="meta">Have an invite? <a href="/register.html">Create your account</a></p>
+      <p class="security-note">Sessions use secure HttpOnly cookies. Authentication tokens are not stored in localStorage.</p>
+    </section>
+  </main>
+  <script src="./auth-ui.js"></script>
+</body>
+</html>
