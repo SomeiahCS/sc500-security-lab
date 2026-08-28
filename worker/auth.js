@@ -11,6 +11,7 @@ export async function registerUser(request,env,url){
   const email=normalizeEmail(body?.email);
   const password=typeof body?.password==='string'?body.password:'';
   const invite=typeof body?.invite==='string'?body.invite.trim():'';
+  const bootstrapCode=typeof body?.bootstrapCode==='string'?body.bootstrapCode.trim():'';
   if(!email||password.length<12||password.length>128) return json({error:'Unable to create account'},400);
   if(!(await rateLimit(env.DB,request,'register',email))) return json({error:'Too many attempts. Try again later.'},429);
   if(await env.DB.prepare('SELECT email FROM app_users WHERE email=?').bind(email).first()) return json({error:'Unable to create account'},400);
@@ -22,8 +23,15 @@ export async function registerUser(request,env,url){
     if(!invitation||invitation.used_at||Number(invitation.expires_at)<=now()||normalizeEmail(invitation.email)!==email) return json({error:'Invitation is invalid or expired'},400);
   }else{
     const admins=await env.DB.prepare("SELECT COUNT(*) c FROM app_users WHERE role='admin'").first();
-    const legacy=await legacyEmailExists(env.DB,email);
-    if(!(String(env.SC500_BOOTSTRAP_FIRST_ADMIN||'').toLowerCase()==='true'&&Number(admins?.c||0)===0&&legacy)) return json({error:'An invitation is required'},403);
+    if(Number(admins?.c||0)>0) return json({error:'An invitation is required'},403);
+    const configuredSecret=typeof env.SC500_BOOTSTRAP_SECRET==='string'?env.SC500_BOOTSTRAP_SECRET:'';
+    if(!configuredSecret) return json({error:'Admin setup is not configured'},503);
+    if(!bootstrapCode) return json({error:'Admin setup code is required'},403);
+    const [providedHash,secretHash]=await Promise.all([sha256Hex(bootstrapCode),sha256Hex(configuredSecret)]);
+    if(!constantTimeEqual(providedHash,secretHash)){
+      await audit(env.DB,email,'bootstrap_failed',request);
+      return json({error:'Invalid admin setup code'},403);
+    }
     role='admin';
   }
 
@@ -92,10 +100,6 @@ export function normalizeEmail(value){if(typeof value!=='string')return null;con
 export async function sha256Hex(value){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value));return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');}
 export async function audit(db,email,action,request){const ip=await sha256Hex(request.headers.get('cf-connecting-ip')||'unknown');await db.prepare('INSERT INTO app_audit_log(actor_email,action,ip_hash) VALUES(?,?,?)').bind(email||null,action,ip).run();}
 
-async function legacyEmailExists(db,email){
-  const row=await db.prepare("SELECT 1 ok FROM (SELECT user_email FROM user_progress WHERE user_email=? UNION SELECT user_email FROM lesson_progress WHERE user_email=? UNION SELECT user_email FROM quiz_scores WHERE user_email=? UNION SELECT user_email FROM lesson_confidence WHERE user_email=? UNION SELECT user_email FROM user_stats WHERE user_email=?) LIMIT 1").bind(email,email,email,email,email).first();
-  return !!row;
-}
 async function createSession(db,email,request){
   const token=randomToken(32),csrf=randomToken(24),tokenHash=await sha256Hex(token),csrfHash=await sha256Hex(csrf),uaHash=await sha256Hex(request.headers.get('user-agent')||''),expires=now()+SESSION_SECONDS;
   await db.prepare('INSERT INTO app_sessions(token_hash,user_email,csrf_hash,expires_at,user_agent_hash) VALUES(?,?,?,?,?)').bind(tokenHash,email,csrfHash,expires,uaHash).run();
