@@ -6,7 +6,8 @@
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
-    "run_worker_first": ["/app", "/app/", "/lab.html", "/admin", "/admin/", "/admin.html", "/app-api/*"]
+    "html_handling": "none",
+    "run_worker_first": ["/", "/app", "/app/", "/lab.html", "/admin", "/admin/", "/admin.html", "/app-api/*"]
   },
   "d1_databases": [
     {
