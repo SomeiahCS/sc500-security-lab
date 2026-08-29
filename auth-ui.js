@@ -41,10 +41,15 @@ async function configureRegistration(){
 }
 
 if(mode==='login'){
-  const reason=new URLSearchParams(location.search).get('registration');
+  const params=new URLSearchParams(location.search);
+  const reason=params.get('registration');
+  const reset=params.get('reset');
   if(reason==='invite-required'&&message){
     message.textContent='Registration requires a valid invitation.';
     message.className='message error';
+  }else if(reset==='success'&&message){
+    message.textContent='Password reset successfully. Sign in with your new password.';
+    message.className='message ok';
   }
 }
 

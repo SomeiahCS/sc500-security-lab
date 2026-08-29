@@ -50,6 +50,36 @@ export async function registerUser(request,env,url){
   return authResponse({ok:true,email,role},session);
 }
 
+export async function recoverAdminPassword(request,env,url){
+  if(!sameOrigin(request,url)) return json({error:'Invalid request origin'},403);
+  const body=await safeJson(request);
+  const email=normalizeEmail(body?.email);
+  const password=typeof body?.password==='string'?body.password:'';
+  const recoveryCode=typeof body?.recoveryCode==='string'?body.recoveryCode.trim():'';
+  if(!email||password.length<12||password.length>128||!recoveryCode) return json({error:'Unable to reset password'},400);
+  if(!(await rateLimit(env.DB,request,'admin_recover',email))) return json({error:'Too many attempts. Try again later.'},429);
+
+  const configuredSecret=typeof env.SC500_ADMIN_RECOVERY_SECRET==='string'?env.SC500_ADMIN_RECOVERY_SECRET:'';
+  if(!configuredSecret) return json({error:'Admin recovery is not configured'},503);
+
+  const user=await env.DB.prepare("SELECT email,role,disabled FROM app_users WHERE email=?").bind(email).first();
+  const [providedHash,secretHash]=await Promise.all([sha256Hex(recoveryCode),sha256Hex(configuredSecret)]);
+  if(!user||user.role!=='admin'||user.disabled||!constantTimeEqual(providedHash,secretHash)){
+    await audit(env.DB,email,'admin_recovery_failed',request);
+    return json({error:'Unable to reset password'},403);
+  }
+
+  const salt=randomToken(16);
+  const passwordHash=await derivePassword(password,salt,PBKDF2_ITERATIONS);
+  await env.DB.batch([
+    env.DB.prepare('UPDATE app_users SET password_hash=?,salt=?,iterations=? WHERE email=?').bind(passwordHash,salt,PBKDF2_ITERATIONS,email),
+    env.DB.prepare('DELETE FROM app_sessions WHERE user_email=?').bind(email)
+  ]);
+  await clearRateLimit(env.DB,request,'admin_recover',email);
+  await audit(env.DB,email,'admin_password_reset',request);
+  return clearAuthResponse({ok:true});
+}
+
 export async function loginUser(request,env,url){
   if(!sameOrigin(request,url)) return json({error:'Invalid request origin'},403);
   const body=await safeJson(request);
