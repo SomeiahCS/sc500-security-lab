@@ -1,0 +1,321 @@
+/* Cross-device responsive hardening
+   Keeps the prep experience usable on phones, tablets, laptops and large screens. */
+
+html{width:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{width:100%;max-width:100%;overflow-x:hidden}
+img,svg,video,canvas{max-width:100%}
+button,a,input{touch-action:manipulation}
+button,a{ -webkit-tap-highlight-color:transparent }
+
+/* ---------- Landing ---------- */
+.landing-shell,.landing-card,.landing-visual,.landing-note{min-width:0;max-width:100%}
+.landing-visual img{max-height:72vh}
+@media(max-width:760px){
+  .landing-shell{min-height:100dvh;padding:10px}
+  .landing-card{width:100%;min-height:calc(100dvh - 20px);padding:34px 18px 22px;gap:8px;align-content:center}
+  .landing-visual{min-height:0}
+  .landing-visual img{width:min(106%,560px);max-height:48dvh}
+  .landing-note{padding:0 2px}
+  .landing-note p{margin-bottom:12px;font-size:clamp(.94rem,4vw,1.02rem)}
+  .try-button{width:100%;min-height:48px}
+}
+@media(max-width:380px){
+  .landing-card{padding-inline:14px;border-radius:18px}
+  .landing-visual img{width:112%}
+}
+
+/* ---------- Auth + admin ---------- */
+.auth-page,.auth-card,.auth-content,.admin-shell,.panel,.grid{min-width:0;max-width:100%}
+.input-shell input{min-width:0}
+@media(max-width:520px){
+  .auth-page{min-height:100dvh;padding:10px}
+  .auth-card{width:100%;min-height:auto;padding:58px 20px 48px;border-radius:20px}
+  .register-card{padding-top:40px}
+  .input-shell{height:50px}
+  .auth-content h1{font-size:clamp(1.45rem,7vw,1.7rem)}
+  button,.button{min-height:46px}
+  .admin-shell{margin:0 auto;padding:16px 12px}
+  .toolbar{flex-direction:column;align-items:stretch}
+  .toolbar .button{width:100%}
+  .panel{padding:16px}
+  .row,.invite-result{overflow-wrap:anywhere}
+}
+@media(max-width:360px){
+  .auth-card{padding-inline:16px}
+}
+
+/* ---------- Prep shell ---------- */
+.prep-ui .app-shell,
+.prep-ui .sidebar,
+.prep-ui .main-panel,
+.tracks-view,
+.overview-view,
+.study-workspace,
+.prep-ui .content-grid,
+.prep-ui .left-stack,
+.prep-ui .right-rail,
+.prep-ui .card,
+.track-detail,
+.lesson-studio,
+.learning-block,
+.understand-grid,
+.use-grid,
+.recall-grid{min-width:0;max-width:100%}
+
+.prep-ui .main-panel{overflow-x:hidden}
+.prep-ui .card{overflow-wrap:anywhere}
+.prep-ui h1,.prep-ui h2,.prep-ui h3,.prep-ui h4,.prep-ui p{overflow-wrap:anywhere}
+.prep-ui .track-header>div,.prep-ui .section-head>div,.learning-block-head>div{min-width:0}
+
+/* Allow horizontal UI controls to scroll instead of widening the page */
+.prep-ui .concept-chips,
+.prep-ui .lesson-tabs,
+.prep-ui .visual-board,
+.prep-ui .sim-architecture,
+.prep-ui .origin-flow,
+.portal-breadcrumb,
+.portal-path{
+  max-width:100%;
+  scrollbar-width:thin;
+}
+.prep-ui .concept-chips,
+.prep-ui .lesson-tabs{
+  overflow-x:auto;
+  overflow-y:hidden;
+  flex-wrap:nowrap!important;
+  overscroll-behavior-x:contain;
+  scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:8px;
+}
+.prep-ui .concept-chip,
+.prep-ui .lesson-tab{
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  max-width:min(82vw,420px);
+}
+.prep-ui .concept-chip{white-space:normal}
+.prep-ui .lesson-tab{white-space:nowrap}
+
+.prep-ui .track-actions button,
+.prep-ui .actions button,
+.prep-ui .mode,
+.prep-ui .back-button,
+.prep-ui .lesson-tab,
+.prep-ui .check-option,
+.prep-ui .quiz-option{
+  min-height:44px;
+}
+
+/* Tablet */
+@media(max-width:900px){
+  .prep-ui .app-shell{width:calc(100vw - 16px)!important;margin:8px auto!important;border-radius:22px}
+  .prep-ui .sidebar{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center!important;
+    gap:10px!important;
+    padding:10px 12px!important;
+  }
+  .prep-nav{display:flex!important;gap:6px;min-width:0;overflow-x:auto}
+  .prep-nav-item{flex:0 0 auto;min-height:42px}
+  .prep-ui .session-card{
+    position:static!important;
+    width:auto!important;
+    min-width:0;
+    margin:0!important;
+    padding:8px!important;
+  }
+  .prep-ui .session-card strong{display:none}
+  .prep-ui .session-actions{margin-top:0!important;white-space:nowrap}
+  .tracks-view,.overview-view{padding:22px 22px 30px}
+  .study-workspace{padding:14px 16px 28px}
+  .workspace-head{gap:10px}
+  .prep-ui .track-detail,.prep-ui .lesson-studio{padding:18px!important}
+  .prep-ui .right-rail{grid-template-columns:1fr!important}
+}
+
+/* Phones */
+@media(max-width:640px){
+  .prep-ui .app-shell{
+    width:100%!important;
+    margin:0!important;
+    min-height:100dvh!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+  }
+  .prep-ui .sidebar{
+    grid-template-columns:1fr auto;
+    position:sticky!important;
+    top:0!important;
+    z-index:30;
+    border-radius:0!important;
+    background:rgba(255,255,255,.96)!important;
+    backdrop-filter:blur(14px);
+  }
+  .prep-nav{gap:4px}
+  .prep-nav-item{
+    padding:9px 10px!important;
+    font-size:.74rem!important;
+    border-radius:9px;
+  }
+  .side-glyph{width:16px}
+  .prep-ui .session-actions a,.prep-ui .session-actions button{
+    min-height:40px;
+    padding:7px 9px!important;
+  }
+
+  .tracks-view,.overview-view{padding:18px 14px 24px}
+  .page-sparkles{top:16px;right:14px}
+  .tracks-head{margin-bottom:18px}
+  .tracks-head h1,.overview-copy h1{font-size:clamp(1.35rem,7vw,1.75rem)}
+  .tracks-head p,.overview-copy p{font-size:.82rem}
+
+  .prep-track-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  .prep-track-card{
+    min-height:138px!important;
+    padding:12px 8px!important;
+    gap:8px!important;
+  }
+  .topic-icon{width:44px!important;height:44px!important}
+  .prep-track-card .azure-track-icon{width:31px;height:31px}
+  .prep-track-card .title{font-size:.74rem!important}
+  .prep-track-card .mini{font-size:.63rem!important}
+
+  .study-workspace{padding:10px 10px 24px!important}
+  .workspace-head{align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .workspace-head>span{display:none}
+  .back-button{max-width:100%;padding:9px 12px}
+
+  .prep-ui .track-detail,.prep-ui .lesson-studio{padding:14px!important;border-radius:14px!important}
+  .prep-ui .track-header,.prep-ui .section-head{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:8px!important;
+  }
+  .prep-ui .track-header h2,.prep-ui .lesson-studio>.section-head h2{
+    font-size:clamp(1.6rem,8vw,2.05rem)!important;
+    line-height:1.12!important;
+    margin-bottom:6px;
+  }
+  .prep-ui .subtext{font-size:.92rem;line-height:1.55}
+  .prep-ui .pill{white-space:normal!important;max-width:100%}
+
+  .prep-ui .concept-chips,
+  .prep-ui .lesson-tabs{
+    margin-inline:-2px;
+    padding-inline:2px;
+  }
+  .prep-ui .concept-chip{
+    max-width:76vw;
+    padding:8px 10px;
+    line-height:1.35;
+  }
+  .prep-ui .lesson-tab{
+    max-width:82vw;
+    padding:10px 12px;
+  }
+
+  .prep-ui .track-actions,.prep-ui .actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+  .prep-ui .track-actions button,.prep-ui .actions button{width:100%!important}
+
+  .learning-block{padding:14px!important;margin-top:12px!important;border-radius:14px!important}
+  .learning-block-head{gap:10px;margin-bottom:12px}
+  .learning-block-head h3{font-size:1rem!important;line-height:1.35}
+  .learning-step{width:28px;height:28px}
+  .learning-copy,.compact-visual,.use-card,.exam-trap,.recall-checklist{padding:13px!important}
+  .learning-copy p,.use-card p,.exam-trap p{font-size:.84rem;line-height:1.58}
+  .understand-grid,.use-grid,.recall-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .origin-strip{grid-template-columns:1fr!important;gap:7px!important}
+  .origin-strip>b{transform:rotate(90deg);justify-self:center}
+
+  .attack-defense{grid-template-columns:1fr!important;gap:8px!important}
+  .attack-defense button{min-height:46px}
+  .story-panel{font-size:.9rem;line-height:1.6}
+
+  .prep-ui .visual-board{overflow-x:auto!important}
+  .prep-ui .visual-row{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    min-width:max-content!important;
+    gap:8px!important;
+  }
+  .prep-ui .visual-node{
+    flex:0 0 min(66vw,220px)!important;
+    min-width:0!important;
+  }
+  .prep-ui .visual-arrow{transform:none!important;align-self:center}
+
+  .flashcard{min-height:170px;padding:16px}
+  .practice-intro{padding-top:0}
+  .practice-intro h3{font-size:.98rem}
+
+  .overview-cards{grid-template-columns:1fr!important}
+  .continue-tile{grid-column:auto!important}
+
+  .origin-head,.coach-head,.simulation-head{flex-direction:column}
+  .origin-stage,.coach-grid,.confidence-row,.misconfig-grid,.compare-box,.impact-grid{grid-template-columns:1fr!important}
+
+  .portal-body{grid-template-columns:1fr!important}
+  .portal-content{padding:14px!important}
+  .portal-title-row{flex-direction:column}
+  .portal-nav{
+    display:flex!important;
+    overflow-x:auto!important;
+    border-right:0!important;
+    border-bottom:1px solid var(--line)!important;
+  }
+  .portal-step{min-width:160px}
+}
+
+/* Very small phones */
+@media(max-width:390px){
+  .prep-ui .sidebar{padding:8px!important}
+  .prep-nav-item{padding:8px!important}
+  .prep-nav-item span:last-child{font-size:.7rem}
+  .prep-ui .session-card{padding:6px!important}
+  .prep-ui .session-actions a,.prep-ui .session-actions button{font-size:.62rem!important;padding:6px 7px!important}
+  .tracks-view,.overview-view{padding-inline:11px}
+  .prep-track-grid{grid-template-columns:1fr!important}
+  .prep-track-card{
+    min-height:112px!important;
+    display:grid!important;
+    grid-template-columns:44px minmax(0,1fr)!important;
+    text-align:left!important;
+    align-items:center!important;
+    justify-content:stretch!important;
+    gap:12px!important;
+    padding:12px!important;
+  }
+  .prep-track-card .track-copy{text-align:left!important}
+  .prep-track-card .title{font-size:.8rem!important}
+  .prep-track-card .mini{font-size:.67rem!important}
+  .study-workspace{padding-inline:7px!important}
+  .prep-ui .track-detail,.prep-ui .lesson-studio{padding:12px!important}
+  .prep-ui .track-header h2,.prep-ui .lesson-studio>.section-head h2{font-size:1.55rem!important}
+  .prep-ui .concept-chip{max-width:82vw}
+  .prep-ui .lesson-tab{max-width:86vw}
+  .learning-block{padding:12px!important}
+  .learning-block-head{align-items:flex-start}
+}
+
+/* Landscape phones and short tablets */
+@media(max-height:540px) and (orientation:landscape){
+  .prep-ui .sidebar{position:static!important}
+  .landing-card{min-height:auto}
+  .auth-page{place-items:start center}
+}
+
+/* Accessible motion handling */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
