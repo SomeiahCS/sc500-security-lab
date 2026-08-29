@@ -5,6 +5,11 @@ const PBKDF2_ITERATIONS=100000;
 const RATE_WINDOW_SECONDS=900;
 const MAX_ATTEMPTS=5;
 
+export async function registrationStatus(env){
+  const admins=await env.DB.prepare("SELECT COUNT(*) c FROM app_users WHERE role='admin'").first();
+  return json({bootstrapRequired:Number(admins?.c||0)===0});
+}
+
 export async function registerUser(request,env,url){
   if(!sameOrigin(request,url)) return json({error:'Invalid request origin'},403);
   const body=await safeJson(request);
