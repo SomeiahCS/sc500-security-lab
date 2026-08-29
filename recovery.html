@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
+  <meta name="robots" content="noindex">
+  <title>Reset admin password</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./auth.css">
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-card register-card">
+      <span class="auth-spark spark-a" aria-hidden="true">✦</span>
+      <span class="auth-spark spark-b" aria-hidden="true">✦</span>
+      <div class="auth-cloud cloud-one" aria-hidden="true"></div>
+      <div class="auth-cloud cloud-two" aria-hidden="true"></div>
+      <div class="auth-content">
+        <h1>Reset admin password</h1>
+        <p class="auth-intro">Use the temporary recovery code configured in Cloudflare.</p>
+        <form id="recoveryForm" autocomplete="off">
+          <div class="field"><label class="sr-only" for="email">Admin email</label><div class="input-shell"><span aria-hidden="true">✉</span><input id="email" name="email" type="email" placeholder="Admin email" required maxlength="254"></div></div>
+          <div class="field"><label class="sr-only" for="password">New password</label><div class="input-shell"><span aria-hidden="true">▣</span><input id="password" name="password" type="password" placeholder="New password" required minlength="12" maxlength="128"></div></div>
+          <div class="field"><label class="sr-only" for="confirmPassword">Confirm new password</label><div class="input-shell"><span aria-hidden="true">✓</span><input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm new password" required minlength="12" maxlength="128"></div></div>
+          <div class="field"><label class="sr-only" for="recoveryCode">Recovery code</label><div class="input-shell"><span aria-hidden="true">◇</span><input id="recoveryCode" name="recoveryCode" type="password" placeholder="Recovery code" required maxlength="256"></div></div>
+          <button type="submit">Reset password</button>
+          <div id="message" class="message" aria-live="polite"></div>
+        </form>
+        <p class="meta"><a href="/login.html">Back to sign in</a></p>
+      </div>
+    </section>
+  </main>
+  <script src="./recovery.js"></script>
+</body>
+</html>
