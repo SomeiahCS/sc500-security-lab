@@ -7,6 +7,11 @@ export default {
     const url=new URL(request.url);
     const path=url.pathname;
 
+    if(path==='/'){
+      const response=await env.ASSETS.fetch(new Request(new URL('/index.html',url.origin),request));
+      return secure(response);
+    }
+
     if(path.startsWith('/app-api/')){
       await ensureSchema(env.DB);
       return handleAppApi(request,env,url);
