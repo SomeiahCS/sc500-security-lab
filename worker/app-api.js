@@ -1,4 +1,4 @@
-import {json,loginUser,logoutUser,registerUser,registrationStatus,requireSession,sameOrigin,validCsrf} from './auth.js';
+import {json,loginUser,logoutUser,recoverAdminPassword,registerUser,registrationStatus,requireSession,sameOrigin,validCsrf} from './auth.js';
 import {handleProgressApi} from './progress-api.js';
 import {handleAdminApi} from './admin-api.js';
 
@@ -7,6 +7,7 @@ export async function handleAppApi(request,env,url){
   if(path==='/app-api/auth/registration-status'&&request.method==='GET') return registrationStatus(env);
   if(path==='/app-api/auth/register'&&request.method==='POST') return registerUser(request,env,url);
   if(path==='/app-api/auth/login'&&request.method==='POST') return loginUser(request,env,url);
+  if(path==='/app-api/auth/admin-recover'&&request.method==='POST') return recoverAdminPassword(request,env,url);
 
   const auth=await requireSession(request,env);
   if(!auth.ok) return json({error:'Authentication required'},401);
